@@ -1,0 +1,3386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoFender: Lawyer-Verified GDPR Compliance for Accountants | Pilot Program</title>
+    <meta name="description" content="Join 20 accounting firms reducing GDPR liability with automated lawyer verification. Create audit trails insurers require. Limited pilot spots.">
+    <meta name="keywords" content="GDPR compliance for accountants, professional liability protection, compliance audit trail, accountant insurance requirements, French GDPR tool">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <style>
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #0f4c8a;
+            --accent-hover: #0d3f73;
+            --accent-light: #e0f2fe;
+            --success: #059669;
+            --success-light: #d1fae5;
+            --warning: #d97706;
+            --warning-light: #fef3c7;
+            --danger: #dc2626;
+            --danger-light: #fee2e2;
+            --bg-light: #f8fafc;
+            --bg-dark: #0f172a;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --text-light: #94a3b8;
+            --border: #e2e8f0;
+            --border-dark: #334155;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --radius: 12px;
+            --radius-lg: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ==================== LANDING PAGE STYLES ==================== */
+        
+        /* Landing Navigation */
+        .landing-nav {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+            height: 72px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .landing-nav .logo {
+            font-weight: 700;
+            font-size: 1.375rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .landing-nav .logo img {
+            height: 36px;
+            width: auto;
+        }
+
+        .landing-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .landing-nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .landing-nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .landing-nav .btn-primary {
+            background: var(--accent);
+            color: white;
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .landing-nav .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 10rem 2rem 6rem;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(15, 76, 138, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.1;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-content p {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            max-width: 540px;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-hero-primary {
+            background: var(--accent);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-hero-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(15, 76, 138, 0.25);
+        }
+
+        .btn-hero-secondary {
+            background: transparent;
+            color: var(--text-main);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-hero-secondary:hover {
+            background: var(--bg-light);
+        }
+
+        /* Hero Visual */
+        .hero-visual {
+            position: relative;
+        }
+
+        .dashboard-mockup {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .mockup-header {
+            background: var(--bg-light);
+            padding: 0.75rem 1rem;
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mockup-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #e2e8f0;
+        }
+
+        .mockup-content {
+            padding: 1.5rem;
+        }
+
+        .mockup-doc {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .mockup-doc-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+        }
+
+        .mockup-doc-info {
+            flex: 1;
+        }
+
+        .mockup-doc-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--primary);
+        }
+
+        .mockup-doc-status {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .mockup-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.375rem 0.75rem;
+            background: var(--warning-light);
+            color: var(--warning);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .mockup-verified {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: var(--success-light);
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .mockup-verified-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .mockup-verified-text {
+            font-weight: 600;
+            color: var(--success);
+            font-size: 0.875rem;
+        }
+
+        .mockup-verified-sub {
+            font-size: 0.75rem;
+            color: #065f46;
+        }
+
+        /* Landing Sections */
+        .landing-section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+        }
+
+        .section-header p {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+        }
+
+        /* Problem Section */
+        .problem-section {
+            background: var(--bg-light);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .problem-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--danger-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--danger);
+            margin-bottom: 1.25rem;
+        }
+
+        .problem-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .problem-card p {
+            font-size: 0.9375rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Visual Workflow Section */
+        .visual-workflow {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .workflow-row {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .workflow-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .workflow-row:nth-child(even) .workflow-visual-card {
+            margin-left: 0;
+            margin-right: auto;
+        }
+
+        .workflow-row:nth-child(odd) .workflow-visual-card {
+            margin-right: 0;
+            margin-left: auto;
+        }
+
+        .workflow-connector {
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0;
+        }
+
+        .connector-arrow {
+            width: 48px;
+            height: 48px;
+            background: var(--accent-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+        }
+
+        .workflow-visual-card {
+            flex: 0 0 55%;
+            background: white;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .workflow-text {
+            flex: 1;
+            padding: 1rem 0;
+        }
+
+        .workflow-step-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent);
+            color: white;
+            padding: 0.375rem 0.875rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .workflow-text h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .workflow-text p {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* Visual Card Contents */
+        .visual-upload {
+            padding: 2rem;
+            text-align: center;
+            background: var(--bg-light);
+        }
+
+        .upload-dropzone {
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .upload-dropzone:hover {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .upload-dropzone-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--accent-light);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: var(--accent);
+        }
+
+        .upload-dropzone h4 {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .upload-dropzone p {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+        }
+
+        .file-preview {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: white;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-top: 1rem;
+            text-align: left;
+        }
+
+        .file-preview-icon {
+            width: 36px;
+            height: 36px;
+            background: #fee2e2;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #dc2626;
+        }
+
+        .file-preview-info {
+            flex: 1;
+        }
+
+        .file-preview-name {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .file-preview-size {
+            font-size: 0.6875rem;
+            color: var(--text-muted);
+        }
+
+        /* AI Scan Visual */
+        .visual-scan {
+            padding: 1.5rem;
+            background: var(--bg-light);
+        }
+
+        .scan-document {
+            background: white;
+            border-radius: 8px;
+            padding: 1.25rem;
+            font-family: 'Times New Roman', Georgia, serif;
+            font-size: 0.75rem;
+            line-height: 1.6;
+            color: #333;
+            position: relative;
+        }
+
+        .scan-highlight {
+            background: linear-gradient(to right, #fef3c7, #fde68a);
+            padding: 0.125rem 0.25rem;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .scan-highlight-red {
+            background: linear-gradient(to right, #fee2e2, #fecaca);
+        }
+
+        .scan-tag {
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--warning);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.5625rem;
+            font-weight: 600;
+            padding: 0.125rem 0.375rem;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .scan-tag-red {
+            background: var(--danger);
+        }
+
+        .scan-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.625rem 0.875rem;
+            background: var(--warning-light);
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--warning);
+        }
+
+        /* Lawyer Review Visual */
+        .visual-review {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--bg-light);
+        }
+
+        .review-doc-mini {
+            background: var(--bg-dark);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .review-doc-mini-header {
+            font-size: 0.625rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .review-doc-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 0.375rem;
+        }
+
+        .review-doc-line {
+            height: 6px;
+            background: #334155;
+            border-radius: 2px;
+        }
+
+        .review-doc-line.highlight {
+            background: var(--warning);
+        }
+
+        .review-panel-mini {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            border: 1px solid var(--border);
+        }
+
+        .review-panel-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .reviewer-avatar {
+            width: 28px;
+            height: 28px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.6875rem;
+            font-weight: 600;
+        }
+
+        .reviewer-info {
+            flex: 1;
+        }
+
+        .reviewer-name {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .reviewer-title {
+            font-size: 0.5625rem;
+            color: var(--text-muted);
+        }
+
+        .review-item-mini {
+            background: var(--bg-light);
+            padding: 0.625rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-item-mini:last-child {
+            margin-bottom: 0;
+        }
+
+        .review-item-label {
+            font-size: 0.5625rem;
+            font-weight: 600;
+            color: var(--warning);
+            margin-bottom: 0.25rem;
+        }
+
+        .review-item-text {
+            font-size: 0.625rem;
+            color: var(--text-muted);
+        }
+
+        .review-item-verdict {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.5625rem;
+            font-weight: 600;
+            color: var(--success);
+            margin-top: 0.25rem;
+        }
+
+        /* Certificate Visual */
+        .visual-certificate {
+            padding: 1.5rem;
+            background: var(--bg-light);
+            display: flex;
+            justify-content: center;
+        }
+
+        .certificate-preview {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 280px;
+            border: 1px solid var(--border);
+        }
+
+        .certificate-header {
+            text-align: center;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .certificate-logo {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .certificate-title {
+            font-size: 0.625rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .certificate-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: var(--success-light);
+            padding: 0.5rem;
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
+        }
+
+        .certificate-badge-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .certificate-badge-text {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--success);
+        }
+
+        .certificate-details {
+            font-size: 0.625rem;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .certificate-detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.25rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .certificate-signature {
+            text-align: center;
+            padding-top: 0.5rem;
+        }
+
+        .signature-line {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 0.125rem;
+        }
+
+        .signature-name {
+            font-size: 0.5625rem;
+            color: var(--text-muted);
+        }
+
+        /* Pilot CTA Section */
+        .pilot-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            border-radius: var(--radius-lg);
+            padding: 4rem;
+            margin: 0 2rem;
+        }
+
+        .pilot-section .section-header h2 {
+            color: white;
+        }
+
+        .pilot-section .section-header p {
+            color: var(--text-light);
+        }
+
+        .pilot-benefits {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .pilot-benefit {
+            text-align: center;
+        }
+
+        .pilot-benefit-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+        }
+
+        .pilot-benefit h4 {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.375rem;
+        }
+
+        .pilot-benefit p {
+            font-size: 0.8125rem;
+            color: var(--text-light);
+        }
+
+        .pilot-counter {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .pilot-counter-label {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .pilot-counter-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .pilot-counter-value span {
+            color: var(--success);
+        }
+
+        /* Proof Section */
+        .proof-section {
+            background: white;
+        }
+
+        .testimonial-card {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            padding: 2.5rem;
+            background: var(--bg-light);
+            border-radius: var(--radius-lg);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 30px;
+            font-size: 6rem;
+            color: var(--accent);
+            opacity: 0.15;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            font-size: 1.25rem;
+            font-style: italic;
+            color: var(--text-main);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .testimonial-role {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-text {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* FAQ Section */
+        .faq-grid {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 1.5rem 0;
+        }
+
+        .faq-question {
+            font-size: 1.0625rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .faq-question i {
+            color: var(--accent);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .faq-answer {
+            font-size: 0.9375rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            padding-left: 2rem;
+        }
+
+        /* Final CTA Section */
+        .final-cta-section {
+            background: var(--bg-light);
+            padding: 6rem 2rem;
+        }
+
+        .final-cta-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .final-cta-container h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .final-cta-container > p {
+            font-size: 1.0625rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+        }
+
+        .pilot-form {
+            background: white;
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            text-align: left;
+        }
+
+        .pilot-form .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .pilot-form .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .pilot-form .form-label {
+            display: block;
+            font-weight: 500;
+            font-size: 0.875rem;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        .pilot-form .form-input,
+        .pilot-form .form-select,
+        .pilot-form .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.9375rem;
+            font-family: inherit;
+            transition: all 0.2s ease;
+            background: white;
+        }
+
+        .pilot-form .form-input:focus,
+        .pilot-form .form-select:focus,
+        .pilot-form .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(15, 76, 138, 0.1);
+        }
+
+        .pilot-form .btn-submit {
+            width: 100%;
+            background: var(--accent);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .pilot-form .btn-submit:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .form-note {
+            text-align: center;
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            margin-top: 1rem;
+        }
+
+        /* Footer */
+        .landing-footer {
+            background: var(--primary);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .landing-footer p {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .landing-footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Mobile Navigation Toggle */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            color: var(--text-main);
+        }
+
+        /* ==================== APP STYLES ==================== */
+
+        /* Navigation */
+        nav {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+            height: 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 32px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-links button {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.875rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links button:hover {
+            color: var(--primary);
+            background-color: var(--bg-light);
+        }
+        
+        .nav-links button.active {
+            color: var(--accent);
+            background-color: var(--accent-light);
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .screen {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 { font-size: 1.875rem; font-weight: 700; color: var(--primary); letter-spacing: -0.025em; }
+        h2 { font-size: 1.5rem; font-weight: 600; color: var(--primary); letter-spacing: -0.025em; }
+        h3 { font-size: 1.125rem; font-weight: 600; color: var(--primary); }
+        h4 { font-size: 1rem; font-weight: 600; color: var(--primary); }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+            color: white;
+            box-shadow: 0 2px 4px rgba(99, 102, 241, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+        }
+
+        .btn-secondary {
+            background-color: white;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-light);
+            border-color: #cbd5e1;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-muted);
+        }
+
+        .btn-ghost:hover {
+            background: var(--bg-light);
+            color: var(--text-main);
+        }
+
+        .btn-sm {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.8125rem;
+        }
+
+        .btn-lg {
+            padding: 0.875rem 1.75rem;
+            font-size: 1rem;
+        }
+
+        /* Icon styling */
+        .icon {
+            width: 18px;
+            height: 18px;
+            stroke-width: 2;
+        }
+
+        .icon-sm {
+            width: 16px;
+            height: 16px;
+        }
+
+        .icon-lg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Dashboard */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .dashboard-header h1 {
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .dashboard-header p {
+            color: var(--text-light);
+            font-size: 0.9375rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .stat-card:hover {
+            box-shadow: var(--shadow);
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-card .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card .stat-icon.processed { background: var(--accent-light); color: var(--accent); }
+        .stat-card .stat-icon.pending { background: var(--warning-light); color: var(--warning); }
+        .stat-card .stat-icon.finalized { background: var(--success-light); color: var(--success); }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.8125rem;
+            font-weight: 500;
+        }
+
+        /* Table */
+        .table-container {
+            background: white;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .table-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: var(--bg-light);
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr {
+            transition: background-color 0.15s ease;
+        }
+
+        tbody tr:hover {
+            background-color: var(--bg-light);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .status-processed { background: var(--accent-light); color: var(--accent); }
+        .status-processed .dot { background: var(--accent); }
+        .status-lawyer { background: var(--warning-light); color: var(--warning); }
+        .status-lawyer .dot { background: var(--warning); }
+        .status-finalized { background: var(--success-light); color: var(--success); }
+        .status-finalized .dot { background: var(--success); }
+
+        /* Upload Screen */
+        .upload-container {
+            max-width: 480px;
+            margin: 3rem auto;
+            text-align: center;
+        }
+
+        .upload-box {
+            background: white;
+            border: 2px dashed var(--border);
+            padding: 3rem 2rem;
+            border-radius: var(--radius-lg);
+            margin-top: 1.5rem;
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+
+        .upload-box:hover {
+            border-color: var(--accent);
+            background-color: var(--accent-light);
+        }
+
+        .upload-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 1rem;
+            background: var(--accent-light);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 2rem auto;
+        }
+
+        @keyframes spin { 
+            to { transform: rotate(360deg); } 
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+        }
+
+        .issue-card {
+            background: var(--danger-light);
+            border: 1px solid #fecaca;
+            border-left: 4px solid var(--danger);
+            padding: 1.25rem;
+            margin-top: 1rem;
+            border-radius: 0 var(--radius) var(--radius) 0;
+        }
+
+        .issue-card h4 {
+            color: var(--danger);
+            margin-bottom: 0.5rem;
+        }
+
+        .issue-card p {
+            color: #991b1b;
+            font-size: 0.875rem;
+        }
+
+        /* Lawyer View */
+        .lawyer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            height: calc(100vh - 140px);
+        }
+
+        .pdf-viewer {
+            background: var(--bg-dark);
+            border-radius: var(--radius);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+        }
+
+        .pdf-viewer-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .pdf-viewer-header h4 {
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .review-panel {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            overflow-y: auto;
+        }
+
+        .review-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .review-item:last-of-type {
+            border-bottom: none;
+        }
+
+        .severity-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.125rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .severity-high { background: var(--danger-light); color: var(--danger); }
+        .severity-medium { background: var(--warning-light); color: var(--warning); }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            font-size: 0.8125rem;
+            color: var(--text-main);
+            margin-bottom: 0.375rem;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 0.625rem 0.875rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-family: inherit;
+            transition: all 0.2s ease;
+            background: white;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Report */
+        .report-paper {
+            background: white;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 3rem;
+            box-shadow: var(--shadow-xl);
+            border-radius: var(--radius-lg);
+        }
+
+        .report-header {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .verification-badge {
+            text-align: right;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+        }
+
+        .verification-badge.verified {
+            background: var(--success-light);
+        }
+
+        .verification-badge.unverified {
+            background: var(--warning-light);
+        }
+
+        /* PDF Document Preview */
+        .document-preview {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 520px;
+            box-shadow: var(--shadow);
+            font-family: 'Times New Roman', Georgia, serif;
+            font-size: 13px;
+            line-height: 1.7;
+            color: #333;
+        }
+
+        .document-preview h2 {
+            font-family: 'Times New Roman', Georgia, serif;
+            text-align: center;
+            font-size: 16px;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .risk-highlight {
+            position: relative;
+            padding: 0.75rem 1rem;
+            margin: 0.75rem 0;
+            border-radius: 4px;
+        }
+
+        .risk-highlight.high {
+            background: linear-gradient(to right, #fee2e2, #fecaca);
+            border: 1px solid #fca5a5;
+            border-left: 4px solid var(--danger);
+        }
+
+        .risk-highlight.medium {
+            background: linear-gradient(to right, #fef3c7, #fde68a);
+            border: 1px solid #fcd34d;
+            border-left: 4px solid var(--warning);
+        }
+
+        .risk-label {
+            position: absolute;
+            top: -10px;
+            right: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .risk-label.high { background: var(--danger); }
+        .risk-label.medium { background: var(--warning); }
+
+        /* Info Box */
+        .info-box {
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+        }
+
+        .info-box.info {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            color: #1e40af;
+        }
+
+        .info-box.warning {
+            background: var(--warning-light);
+            border: 1px solid #fcd34d;
+            color: #92400e;
+        }
+
+        .info-box.success {
+            background: var(--success-light);
+            border: 1px solid #6ee7b7;
+            color: #065f46;
+        }
+
+        /* ==================== LANDING PAGE RESPONSIVE ==================== */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-content p {
+                margin: 0 auto 2rem;
+            }
+            
+            .hero-ctas {
+                justify-content: center;
+            }
+            
+            .problem-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .workflow-row {
+                flex-direction: column !important;
+                gap: 1.5rem;
+            }
+            
+            .workflow-visual-card {
+                flex: 0 0 auto;
+                width: 100%;
+                max-width: 500px;
+                margin: 0 auto !important;
+            }
+            
+            .workflow-text {
+                text-align: center;
+                padding: 0 1rem;
+            }
+            
+            .visual-review {
+                grid-template-columns: 1fr;
+            }
+            
+            .pilot-benefits {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .landing-nav {
+                padding: 0 1rem;
+            }
+            
+            .landing-nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero {
+                padding: 7rem 1.5rem 4rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-ctas {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .problem-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .workflow-text h3 {
+                font-size: 1.25rem;
+            }
+            
+            .pilot-section {
+                padding: 3rem 1.5rem;
+                margin: 0 1rem;
+            }
+            
+            .pilot-benefits {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .stats-row {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .pilot-form .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .landing-section {
+                padding: 4rem 1.5rem;
+            }
+            
+            .section-header h2 {
+                font-size: 1.75rem;
+            }
+        }
+
+        /* ==================== APP RESPONSIVE ==================== */
+        @media (max-width: 1024px) {
+            .lawyer-grid {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            
+            .pdf-viewer {
+                min-height: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            nav {
+                padding: 0 1rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }
+
+        @media print {
+            nav, .no-print { display: none; }
+            body { background: white; }
+            .report-paper { box-shadow: none; border: none; padding: 0; border-radius: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== LANDING PAGE ==================== -->
+    <div id="screen-landing" class="screen active">
+        <!-- Landing Navigation -->
+        <nav class="landing-nav">
+            <a href="#" class="logo">
+                <img src="assets/logo.png" alt="CoFender" onerror="this.style.display='none'">
+            </a>
+            <div class="landing-nav-links">
+                <a href="#how-it-works">How It Works</a>
+                <a href="#pilot-program">Pilot Program</a>
+                <a href="#faq">FAQ</a>
+                <a href="#" onclick="app.navigate('dashboard'); return false;" class="btn-primary">Enter App</a>
+            </div>
+            <button class="mobile-menu-btn">
+                <i data-lucide="menu" class="icon"></i>
+            </button>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1>Your Client Contracts, Checked for GDPR. By a Real Lawyer.</h1>
+                    <p>Upload your DPAs and client agreements. Our AI flags potential GDPR issues. A qualified lawyer reviews and signs off. You get a certificate proving you did your due diligence.</p>
+                    <div class="hero-ctas">
+                        <a href="#signup" class="btn-hero-primary">
+                            Join the Pilot Program
+                            <i data-lucide="arrow-right" class="icon"></i>
+                        </a>
+                        <a href="#how-it-works" class="btn-hero-secondary">
+                            <i data-lucide="play-circle" class="icon"></i>
+                            See How It Works
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="dashboard-mockup">
+                        <div class="mockup-header">
+                            <div class="mockup-dot"></div>
+                            <div class="mockup-dot"></div>
+                            <div class="mockup-dot"></div>
+                        </div>
+                        <div class="mockup-content">
+                            <div class="mockup-doc">
+                                <div class="mockup-doc-icon">
+                                    <i data-lucide="file-text" class="icon"></i>
+                                </div>
+                                <div class="mockup-doc-info">
+                                    <div class="mockup-doc-name">DPA_Client_ABC.pdf</div>
+                                    <div class="mockup-doc-status">2 issues detected</div>
+                                </div>
+                                <div class="mockup-badge">
+                                    <i data-lucide="alert-triangle" style="width: 12px; height: 12px;"></i>
+                                    Needs Review
+                                </div>
+                            </div>
+                            <div class="mockup-doc">
+                                <div class="mockup-doc-icon">
+                                    <i data-lucide="file-text" class="icon"></i>
+                                </div>
+                                <div class="mockup-doc-info">
+                                    <div class="mockup-doc-name">Privacy_Notice_XYZ.pdf</div>
+                                    <div class="mockup-doc-status">Compliant</div>
+                                </div>
+                            </div>
+                            <div class="mockup-verified">
+                                <div class="mockup-verified-icon">
+                                    <i data-lucide="shield-check" style="width: 16px; height: 16px;"></i>
+                                </div>
+                                <div>
+                                    <div class="mockup-verified-text">Lawyer Verified</div>
+                                    <div class="mockup-verified-sub">Certificate ready for download</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problem Section -->
+        <section class="landing-section problem-section">
+            <div class="section-header">
+                <h2>You Know You Need DPAs. But Who Has Time?</h2>
+                <p>You handle sensitive financial data for dozens of clients. GDPR applies to you. But you're an accountant, not a lawyer.</p>
+            </div>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">
+                        <i data-lucide="clock" class="icon-lg"></i>
+                    </div>
+                    <h3>"I'll Get to It Later"</h3>
+                    <p>You know your client contracts need proper data protection clauses. But between deadlines and client work, reviewing legal documents keeps getting pushed back.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">
+                        <i data-lucide="euro" class="icon-lg"></i>
+                    </div>
+                    <h3>Lawyers Are Expensive</h3>
+                    <p>Having a lawyer review each client agreement costs hundreds of euros. Multiply that by your client base and it's simply not viable.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">
+                        <i data-lucide="file-question" class="icon-lg"></i>
+                    </div>
+                    <h3>What If CNIL Comes Knocking?</h3>
+                    <p>Regulators want proof you took compliance seriously. A folder of unsigned documents won't cut it. You need a paper trail that shows you verified your contracts.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solution/How It Works Section -->
+        <section id="how-it-works" class="landing-section">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p>From upload to signed certificate in under 48 hours</p>
+            </div>
+            
+            <div class="visual-workflow">
+                <!-- Step 1: Upload -->
+                <div class="workflow-row">
+                    <div class="workflow-text">
+                        <div class="workflow-step-badge">
+                            <span>Step 1</span>
+                        </div>
+                        <h3>Upload Your Contract</h3>
+                        <p>Drag and drop your DPA, client agreement, or privacy notice. We accept PDF and Word documents up to 10MB.</p>
+                    </div>
+                    <div class="workflow-visual-card">
+                        <div class="visual-upload">
+                            <div class="upload-dropzone">
+                                <div class="upload-dropzone-icon">
+                                    <i data-lucide="upload-cloud" class="icon-lg"></i>
+                                </div>
+                                <h4>Drop your file here</h4>
+                                <p>or click to browse</p>
+                            </div>
+                            <div class="file-preview">
+                                <div class="file-preview-icon">
+                                    <i data-lucide="file-text" style="width: 18px; height: 18px;"></i>
+                                </div>
+                                <div class="file-preview-info">
+                                    <div class="file-preview-name">DPA_Client_Durand.pdf</div>
+                                    <div class="file-preview-size">245 KB</div>
+                                </div>
+                                <i data-lucide="check-circle" style="width: 18px; height: 18px; color: var(--success);"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="workflow-connector">
+                    <div class="connector-arrow">
+                        <i data-lucide="arrow-down" class="icon"></i>
+                    </div>
+                </div>
+
+                <!-- Step 2: AI Scan -->
+                <div class="workflow-row">
+                    <div class="workflow-text">
+                        <div class="workflow-step-badge">
+                            <span>Step 2</span>
+                        </div>
+                        <h3>AI Highlights Issues</h3>
+                        <p>In seconds, our AI scans your document and highlights potential GDPR issues: missing clauses, vague language, or compliance gaps.</p>
+                    </div>
+                    <div class="workflow-visual-card">
+                        <div class="visual-scan">
+                            <div class="scan-document">
+                                <p style="margin-bottom: 0.5rem;"><strong>Article 3 - Data Retention</strong></p>
+                                <p style="margin-bottom: 0.75rem;">The Processor shall retain personal data for the duration necessary to fulfill the purposes outlined in this agreement.</p>
+                                <p style="position: relative; margin-bottom: 0.75rem;">
+                                    <span class="scan-highlight">For data protection inquiries, contact the relevant department.</span>
+                                    <span class="scan-tag">Missing DPO contact</span>
+                                </p>
+                                <p style="position: relative;">
+                                    <span class="scan-highlight scan-highlight-red">Data will be kept as long as needed.</span>
+                                    <span class="scan-tag scan-tag-red">Vague retention period</span>
+                                </p>
+                            </div>
+                            <div class="scan-status">
+                                <i data-lucide="alert-triangle" style="width: 16px; height: 16px;"></i>
+                                2 potential issues detected
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="workflow-connector">
+                    <div class="connector-arrow">
+                        <i data-lucide="arrow-down" class="icon"></i>
+                    </div>
+                </div>
+
+                <!-- Step 3: Lawyer Review -->
+                <div class="workflow-row">
+                    <div class="workflow-text">
+                        <div class="workflow-step-badge">
+                            <span>Step 3</span>
+                        </div>
+                        <h3>Lawyer Reviews</h3>
+                        <p>A licensed French lawyer reviews the AI findings, confirms or dismisses each issue, and provides specific recommendations for fixes.</p>
+                    </div>
+                    <div class="workflow-visual-card">
+                        <div class="visual-review">
+                            <div class="review-doc-mini">
+                                <div class="review-doc-mini-header">Document Preview</div>
+                                <div class="review-doc-lines">
+                                    <div class="review-doc-line" style="width: 80%;"></div>
+                                    <div class="review-doc-line" style="width: 100%;"></div>
+                                    <div class="review-doc-line highlight" style="width: 90%;"></div>
+                                    <div class="review-doc-line" style="width: 70%;"></div>
+                                    <div class="review-doc-line" style="width: 85%;"></div>
+                                    <div class="review-doc-line highlight" style="width: 95%;"></div>
+                                    <div class="review-doc-line" style="width: 60%;"></div>
+                                </div>
+                            </div>
+                            <div class="review-panel-mini">
+                                <div class="review-panel-header">
+                                    <div class="reviewer-avatar">ML</div>
+                                    <div class="reviewer-info">
+                                        <div class="reviewer-name">Me. Laurent</div>
+                                        <div class="reviewer-title">Data Protection Lawyer</div>
+                                    </div>
+                                </div>
+                                <div class="review-item-mini">
+                                    <div class="review-item-label">Issue #1: Missing DPO</div>
+                                    <div class="review-item-text">Add: dpo@client.com in Art. 3</div>
+                                    <div class="review-item-verdict">
+                                        <i data-lucide="check" style="width: 10px; height: 10px;"></i>
+                                        Confirmed
+                                    </div>
+                                </div>
+                                <div class="review-item-mini">
+                                    <div class="review-item-label">Issue #2: Retention Period</div>
+                                    <div class="review-item-text">Specify: "5 years from contract end"</div>
+                                    <div class="review-item-verdict">
+                                        <i data-lucide="check" style="width: 10px; height: 10px;"></i>
+                                        Confirmed
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="workflow-connector">
+                    <div class="connector-arrow">
+                        <i data-lucide="arrow-down" class="icon"></i>
+                    </div>
+                </div>
+
+                <!-- Step 4: Certificate -->
+                <div class="workflow-row">
+                    <div class="workflow-text">
+                        <div class="workflow-step-badge">
+                            <span>Step 4</span>
+                        </div>
+                        <h3>Get Your Certificate</h3>
+                        <p>Download a timestamped, lawyer-signed compliance certificate. Keep it in your records for insurance requirements or regulatory audits.</p>
+                    </div>
+                    <div class="workflow-visual-card">
+                        <div class="visual-certificate">
+                            <div class="certificate-preview">
+                                <div class="certificate-header">
+                                    <div class="certificate-logo">CoFender</div>
+                                    <div class="certificate-title">Compliance Certificate</div>
+                                </div>
+                                <div class="certificate-badge">
+                                    <div class="certificate-badge-icon">
+                                        <i data-lucide="shield-check" style="width: 12px; height: 12px;"></i>
+                                    </div>
+                                    <div class="certificate-badge-text">Lawyer Verified</div>
+                                </div>
+                                <div class="certificate-details">
+                                    <div class="certificate-detail-row">
+                                        <span>Document</span>
+                                        <span>DPA_Client_Durand.pdf</span>
+                                    </div>
+                                    <div class="certificate-detail-row">
+                                        <span>Review Date</span>
+                                        <span>20 Jan 2026</span>
+                                    </div>
+                                    <div class="certificate-detail-row">
+                                        <span>Issues Found</span>
+                                        <span>2 (resolved)</span>
+                                    </div>
+                                </div>
+                                <div class="certificate-signature">
+                                    <div class="signature-line">M. Laurent</div>
+                                    <div class="signature-name">Me. Marie Laurent, Avocat</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pilot Program Section -->
+        <section id="pilot-program">
+            <div class="pilot-section">
+                <div class="section-header">
+                    <h2>Why a Pilot Program?</h2>
+                    <p>We're building this for accountants like you. Your feedback shapes the product.</p>
+                </div>
+                <div class="pilot-benefits">
+                    <div class="pilot-benefit">
+                        <div class="pilot-benefit-icon">
+                            <i data-lucide="gift" class="icon"></i>
+                        </div>
+                        <h4>Free for 6 Months</h4>
+                        <p>Use it at no cost while we refine the product</p>
+                    </div>
+                    <div class="pilot-benefit">
+                        <div class="pilot-benefit-icon">
+                            <i data-lucide="messages-square" class="icon"></i>
+                        </div>
+                        <h4>Your Input Matters</h4>
+                        <p>Direct line to our team. We build what you need.</p>
+                    </div>
+                    <div class="pilot-benefit">
+                        <div class="pilot-benefit-icon">
+                            <i data-lucide="percent" class="icon"></i>
+                        </div>
+                        <h4>Pilot Pricing Forever</h4>
+                        <p>50% off when we launch publicly</p>
+                    </div>
+                    <div class="pilot-benefit">
+                        <div class="pilot-benefit-icon">
+                            <i data-lucide="shield-check" class="icon"></i>
+                        </div>
+                        <h4>Real Lawyer Reviews</h4>
+                        <p>Every certificate is signed by a licensed lawyer</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="landing-section">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i data-lucide="help-circle" class="icon"></i>
+                        Is the AI's analysis legally binding?
+                    </div>
+                    <p class="faq-answer">The AI provides preliminary analysis only. Every document receives human lawyer verification before any certificate is issued. The lawyer's signature creates the legally relevant audit trail, not the AI.</p>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i data-lucide="help-circle" class="icon"></i>
+                        What qualifications do your reviewing lawyers have?
+                    </div>
+                    <p class="faq-answer">All reviewing lawyers are licensed in France with specialization in data protection law. They maintain professional liability insurance and follow established review protocols.</p>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i data-lucide="help-circle" class="icon"></i>
+                        What happens after the pilot period?
+                    </div>
+                    <p class="faq-answer">Pilot members receive 50% off our standard pricing forever. You'll keep all documents and certificates generated during the pilot. No lock-in, cancel anytime.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA Section -->
+        <section id="signup" class="final-cta-section">
+            <div class="final-cta-container">
+                <h2>Try It Free During Our Pilot</h2>
+                <p>We're looking for 20 accounting firms to help us build this right. 6 months free, no commitment.</p>
+                
+                <form class="pilot-form" id="pilot-signup-form" onsubmit="handlePilotSubmit(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Your Name *</label>
+                            <input type="text" class="form-input" name="name" required placeholder="Jean Martin">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Firm Name *</label>
+                            <input type="text" class="form-input" name="firm" required placeholder="Cabinet Martin">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address *</label>
+                        <input type="email" class="form-input" name="email" required placeholder="jean@cabinet-martin.fr">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">How many clients do you work with?</label>
+                        <select class="form-select" name="clients">
+                            <option value="">Select range...</option>
+                            <option value="1-25">1-25 clients</option>
+                            <option value="26-50">26-50 clients</option>
+                            <option value="51-100">51-100 clients</option>
+                            <option value="100+">More than 100</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <i data-lucide="send" class="icon"></i>
+                        Request Access
+                    </button>
+                    <p class="form-note">We'll contact you within 24 hours.</p>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="landing-footer">
+            <p>&copy; 2026 CoFender. Built for French accountants who take data protection seriously.</p>
+        </footer>
+    </div>
+
+    <!-- ==================== APP SCREENS ==================== -->
+    <nav id="app-nav" style="display: none;">
+        <a href="#" class="logo" onclick="app.navigate('dashboard'); return false;">
+            <img src="assets/logo.png" alt="CoFender" onerror="this.style.display='none'">
+        </a>
+        <div class="nav-links">
+            <button id="nav-landing" onclick="app.navigate('landing')">
+                <i data-lucide="home" class="icon-sm"></i>
+                Home
+            </button>
+            <button id="nav-dashboard" onclick="app.navigate('dashboard')" class="active">
+                <i data-lucide="layout-dashboard" class="icon-sm"></i>
+                Dashboard
+            </button>
+            <button id="nav-lawyer" onclick="app.navigate('lawyer')">
+                <i data-lucide="scale" class="icon-sm"></i>
+                Legal Review
+            </button>
+            <button id="nav-guide" onclick="app.navigate('guide')">
+                <i data-lucide="book-open" class="icon-sm"></i>
+                Guide
+            </button>
+        </div>
+    </nav>
+
+    <!-- SCREEN 1: DASHBOARD -->
+    <div id="screen-dashboard" class="container screen">
+        <div class="dashboard-header">
+            <div>
+                <h1>Welcome back, Sarah</h1>
+                <p>Monitor your compliance documents and track their status.</p>
+            </div>
+            <button class="btn btn-primary btn-lg" onclick="app.navigate('upload')" style="background: white; color: var(--primary);">
+                <i data-lucide="upload" class="icon"></i>
+                Upload Document
+            </button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon processed">
+                    <i data-lucide="file-text" class="icon"></i>
+                </div>
+                <div class="stat-value" id="count-processed">0</div>
+                <div class="stat-label">Total Documents</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon pending">
+                    <i data-lucide="clock" class="icon"></i>
+                </div>
+                <div class="stat-value" id="count-pending">0</div>
+                <div class="stat-label">Pending Review</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon finalized">
+                    <i data-lucide="check-circle" class="icon"></i>
+                </div>
+                <div class="stat-value" id="count-finalized">0</div>
+                <div class="stat-label">Finalized</div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <div class="table-header">
+                <h3>Recent Documents</h3>
+            </div>
+            <table id="dashboard-table">
+                <thead>
+                    <tr>
+                        <th>Document Name</th>
+                        <th>Client</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Populated by JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- SCREEN 2: UPLOAD -->
+    <div id="screen-upload" class="container screen">
+        <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+            <h2>Upload Document for Analysis</h2>
+            <p style="color: var(--text-muted); margin-top: 0.5rem;">Our AI will scan for GDPR compliance issues instantly.</p>
+        </div>
+
+        <div id="upload-phase-1" class="upload-container">
+            <div class="upload-box" onclick="document.getElementById('file-input').click()">
+                <div class="upload-icon">
+                    <i data-lucide="file-up" class="icon-lg"></i>
+                </div>
+                <h3 style="margin-bottom: 0.5rem;">Click to upload</h3>
+                <p style="color: var(--text-muted); font-size: 0.875rem;">PDF or DOCX up to 10MB</p>
+                <input type="file" id="file-input" style="display: none" accept=".pdf,.docx" onchange="app.handleUpload(this)">
+            </div>
+            <div class="form-group" style="margin-top: 1.5rem; text-align: left;">
+                <label class="form-label">Client Name</label>
+                <input type="text" id="client-name-input" class="form-input" placeholder="e.g. Acme Corporation">
+            </div>
+        </div>
+
+        <div id="upload-phase-2" class="upload-container" style="display: none;">
+            <div class="spinner"></div>
+            <h3 style="margin-top: 1rem;">Analyzing Document</h3>
+            <p style="color: var(--text-muted);">Detecting potential compliance issues...</p>
+        </div>
+
+        <div id="upload-phase-3" class="container" style="display: none; max-width: 1200px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <!-- PDF Preview with Highlights -->
+                <div class="pdf-viewer">
+                    <div class="pdf-viewer-header">
+                        <h4>Document Preview</h4>
+                        <span style="font-size: 0.75rem; opacity: 0.7;">Risk areas highlighted</span>
+                    </div>
+                    <div class="document-preview">
+                        <h2>DATA PROCESSING AGREEMENT</h2>
+                        <p><strong>Between:</strong> The Data Controller and Data Processor</p>
+                        <p><strong>Date:</strong> January 2026</p>
+                        <hr style="margin: 1rem 0; border: none; border-top: 1px solid #ddd;">
+                        
+                        <p><strong>1. Purpose</strong></p>
+                        <p>This agreement outlines the terms for processing personal data in accordance with applicable data protection regulations.</p>
+                        
+                        <p style="margin-top: 1rem;"><strong>2. Data Protection Contact</strong></p>
+                        <div class="risk-highlight medium">
+                            <span class="risk-label medium">Issue #1</span>
+                            <p style="margin: 0;">For any data protection queries, please contact the relevant department.</p>
+                        </div>
+                        
+                        <p style="margin-top: 1rem;"><strong>3. Data Subject Rights</strong></p>
+                        <p>Data subjects have the right to access, rectify, and erase their personal data as provided by law.</p>
+                        
+                        <p style="margin-top: 1rem;"><strong>4. Data Retention</strong></p>
+                        <p><strong>4.2 Retention Period</strong></p>
+                        <div class="risk-highlight high">
+                            <span class="risk-label high">Issue #2</span>
+                            <p style="margin: 0;">Data will be kept for as long as needed for the purposes described herein.</p>
+                        </div>
+                        
+                        <p style="margin-top: 1rem;"><strong>5. Security Measures</strong></p>
+                        <p>Appropriate technical and organizational measures shall be implemented to ensure data security.</p>
+                    </div>
+                </div>
+                
+                <!-- Analysis Result Panel -->
+                <div class="card" style="overflow-y: auto; max-height: calc(100vh - 200px);">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                        <div style="width: 40px; height: 40px; background: var(--success-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--success);">
+                            <i data-lucide="scan-search" class="icon"></i>
+                        </div>
+                        <div>
+                            <h3 style="margin: 0;">Analysis Complete</h3>
+                            <p style="color: var(--text-muted); font-size: 0.875rem; margin: 0;">2 potential issues found</p>
+                        </div>
+                    </div>
+
+                    <div class="issue-card">
+                        <h4>1. Missing DPO Contact Information</h4>
+                        <p>The document mentions data processing but fails to specify a Data Protection Officer contact as required by GDPR Article 13.</p>
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label class="form-label">Your Assessment</label>
+                            <select id="self-verdict-1" class="form-select">
+                                <option value="Valid">Needs to be addressed</option>
+                                <option value="Invalid">Not applicable / Already resolved</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Notes</label>
+                            <textarea id="self-comment-1" class="form-textarea" rows="2">Add DPO contact email (dpo@company.com) in Section 2.</textarea>
+                        </div>
+                    </div>
+
+                    <div class="issue-card">
+                        <h4>2. Vague Data Retention Period</h4>
+                        <p>Clause 4.2 states "data will be kept for as long as needed" which is too vague under GDPR storage limitation principles (Art. 5).</p>
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label class="form-label">Your Assessment</label>
+                            <select id="self-verdict-2" class="form-select">
+                                <option value="Valid">Needs to be addressed</option>
+                                <option value="Invalid">Not applicable / Already resolved</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Notes</label>
+                            <textarea id="self-comment-2" class="form-textarea" rows="2">Specify retention period: 5 years as per Art 5(1)(e).</textarea>
+                        </div>
+                    </div>
+
+                    <div class="info-box info" style="margin-top: 1.5rem;">
+                        <i data-lucide="info" class="icon" style="flex-shrink: 0;"></i>
+                        <div>
+                            <strong>Note:</strong> Self-corrected reports are marked as "Unverified". Send to a lawyer for a verified certificate.
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+                        <button class="btn btn-primary" onclick="app.downloadSelfReport()" style="width: 100%;">
+                            <i data-lucide="download" class="icon"></i>
+                            Download Report (Unverified)
+                        </button>
+                        <button class="btn btn-secondary" onclick="app.sendToLawyer()" style="width: 100%;">
+                            <i data-lucide="send" class="icon"></i>
+                            Send to Legal Team
+                        </button>
+                        <button class="btn btn-ghost" onclick="app.navigate('dashboard')" style="width: 100%;">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCREEN 3: LAWYER VIEW -->
+    <div id="screen-lawyer" class="container screen" style="max-width: 1400px;">
+        <div id="lawyer-queue-view">
+            <div style="margin-bottom: 2rem;">
+                <h2>Legal Review Queue</h2>
+                <p style="color: var(--text-muted);">Documents awaiting your verification.</p>
+            </div>
+            <div class="table-container">
+                <table id="lawyer-table">
+                    <thead>
+                        <tr>
+                            <th>Document</th>
+                            <th>Client</th>
+                            <th>Submitted</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Populated JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="lawyer-work-view" style="display: none;">
+            <button class="btn btn-ghost btn-sm" onclick="app.showLawyerQueue()" style="margin-bottom: 1rem;">
+                <i data-lucide="arrow-left" class="icon-sm"></i>
+                Back to Queue
+            </button>
+            <div class="lawyer-grid">
+                <!-- PDF Viewer with Highlighted Risks -->
+                <div class="pdf-viewer">
+                    <div class="pdf-viewer-header">
+                        <h4>Document Preview</h4>
+                        <span style="font-size: 0.75rem; opacity: 0.7;">Risk areas highlighted</span>
+                    </div>
+                    <div class="document-preview">
+                        <h2>DATA PROCESSING AGREEMENT</h2>
+                        <p><strong>Between:</strong> The Data Controller and Data Processor</p>
+                        <p><strong>Date:</strong> January 2026</p>
+                        <hr style="margin: 1rem 0; border: none; border-top: 1px solid #ddd;">
+                        
+                        <p><strong>1. Purpose</strong></p>
+                        <p>This agreement outlines the terms for processing personal data in accordance with applicable data protection regulations.</p>
+                        
+                        <p style="margin-top: 1rem;"><strong>2. Data Protection Contact</strong></p>
+                        <div class="risk-highlight medium">
+                            <span class="risk-label medium">Issue #1</span>
+                            <p style="margin: 0;">For any data protection queries, please contact the relevant department.</p>
+                        </div>
+                        
+                        <p style="margin-top: 1rem;"><strong>3. Data Subject Rights</strong></p>
+                        <p>Data subjects have the right to access, rectify, and erase their personal data as provided by applicable law.</p>
+                        
+                        <p style="margin-top: 1rem;"><strong>4. Data Retention</strong></p>
+                        <p><strong>4.2 Retention Period</strong></p>
+                        <div class="risk-highlight high">
+                            <span class="risk-label high">Issue #2</span>
+                            <p style="margin: 0;">Data will be kept for as long as needed for the purposes described herein.</p>
+                        </div>
+                        
+                        <p style="margin-top: 1rem;"><strong>5. Security Measures</strong></p>
+                        <p>Appropriate technical and organizational measures shall be implemented to ensure data security.</p>
+                        
+                        <p style="margin-top: 1rem;"><strong>6. Termination</strong></p>
+                        <p>Upon termination, all personal data shall be returned or securely deleted as per applicable regulations.</p>
+                    </div>
+                    <canvas id="the-canvas" style="display: none;"></canvas>
+                </div>
+                
+                <!-- Review Form -->
+                <div class="review-panel">
+                    <div style="margin-bottom: 1.5rem;">
+                        <h3>Legal Verification</h3>
+                        <p style="color: var(--text-muted); font-size: 0.875rem;">Review document: <strong id="lawyer-doc-title">Document</strong></p>
+                    </div>
+
+                    <div class="review-item">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                            <h4 style="color: var(--danger); margin: 0;">Issue 1: Missing DPO Contact</h4>
+                            <span class="severity-badge severity-high">High</span>
+                        </div>
+                        <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1rem;">The document fails to specify a Data Protection Officer contact as required by GDPR Article 13.</p>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Verdict</label>
+                            <select id="verdict-1" class="form-select">
+                                <option value="Valid">Valid Issue - Requires Fix</option>
+                                <option value="Invalid">False Positive - Dismiss</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Remediation Notes</label>
+                            <textarea id="comment-1" class="form-textarea" rows="2">Add specific contact email (dpo@company.com) in Section 2.</textarea>
+                        </div>
+                    </div>
+
+                    <div class="review-item">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                            <h4 style="color: var(--warning); margin: 0;">Issue 2: Vague Retention Period</h4>
+                            <span class="severity-badge severity-medium">Medium</span>
+                        </div>
+                        <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1rem;">Clause 4.2 uses vague language that doesn't meet GDPR storage limitation requirements.</p>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Verdict</label>
+                            <select id="verdict-2" class="form-select">
+                                <option value="Valid">Valid Issue - Requires Fix</option>
+                                <option value="Invalid">False Positive - Dismiss</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Remediation Notes</label>
+                            <textarea id="comment-2" class="form-textarea" rows="2">Specify exact retention period (e.g., 5 years) to comply with Art 5(1)(e).</textarea>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-lg" style="width: 100%" onclick="app.submitReview()">
+                        <i data-lucide="check-circle" class="icon"></i>
+                        Complete Review
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCREEN 4: REPORT -->
+    <div id="screen-report" class="container screen">
+        <div class="no-print" style="margin-bottom: 1.5rem;">
+            <button class="btn btn-ghost" onclick="app.navigate('dashboard')">
+                <i data-lucide="arrow-left" class="icon-sm"></i>
+                Back to Dashboard
+            </button>
+        </div>
+        
+        <div class="report-paper" id="report-paper-content">
+            <div class="report-header">
+                <div>
+                    <img src="assets/logo.png" alt="CoFender" style="height: 36px; margin-bottom: 0.75rem;" onerror="this.style.display='none'">
+                    <h1 style="font-size: 1.375rem; margin-bottom: 0.25rem;">Compliance Audit Report</h1>
+                    <p id="report-meta" style="color: var(--text-muted); font-size: 0.875rem;">Generated on ...</p>
+                </div>
+                <div class="verification-badge verified" id="report-verification-badge">
+                    <div style="font-weight: 700; color: var(--success); font-size: 1rem;">VERIFIED</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">Legal Team</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1rem; font-size: 1rem;">Document Summary</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.875rem; padding: 1rem; background: var(--bg-light); border-radius: 8px;">
+                    <div><span style="color: var(--text-muted);">File Name:</span> <strong id="report-filename">...</strong></div>
+                    <div><span style="color: var(--text-muted);">Client:</span> <strong id="report-client">...</strong></div>
+                </div>
+            </div>
+
+            <h3 style="margin-bottom: 1rem; font-size: 1rem;">Audit Findings</h3>
+            
+            <div id="report-findings">
+                <!-- Populated by JS -->
+            </div>
+
+            <div style="margin-top: 3rem; border-top: 1px solid var(--border); padding-top: 1.5rem; font-size: 0.8125rem; color: var(--text-muted); text-align: center;">
+                Generated by CoFender AI • Verified by Humans
+            </div>
+        </div>
+
+        <div class="no-print" style="text-align: center; margin-top: 1.5rem;">
+            <button class="btn btn-primary btn-lg" onclick="app.downloadReportAsPdf()">
+                <i data-lucide="download" class="icon"></i>
+                Download Certificate
+            </button>
+        </div>
+    </div>
+
+    <!-- SCREEN 5: GUIDE -->
+    <div id="screen-guide" class="container screen">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div style="margin-bottom: 2rem;">
+                <h1>CoFender MVP User Guide</h1>
+                <p style="color: var(--text-muted);">How to navigate and test the pilot features.</p>
+            </div>
+            
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1rem; display:flex; align-items:center; gap:0.5rem;"><i data-lucide="user" class="icon"></i> Accountant View (You)</h3>
+                <p style="margin-bottom: 1rem;">This is your default dashboard where you manage client documents.</p>
+                <ul style="padding-left: 1.5rem; line-height: 1.8; color: var(--text-muted);">
+                    <li><strong>Upload:</strong> Click "New Document" to start a compliance check. You can upload any PDF/DOCX (simulated).</li>
+                    <li><strong>AI Scan:</strong> The system will automatically detect GDPR risks (simulated delay).</li>
+                    <li><strong>Action:</strong> You can either "Self-Correct" (generates unverified report) or "Send to Lawyer" (for certification).</li>
+                </ul>
+            </div>
+
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1rem; display:flex; align-items:center; gap:0.5rem;"><i data-lucide="scale" class="icon"></i> Lawyer View (Partner)</h3>
+                <p style="margin-bottom: 1rem;">Simulate the lawyer's experience to see how they validate your files.</p>
+                <ul style="padding-left: 1.5rem; line-height: 1.8; color: var(--text-muted);">
+                    <li><strong>Queue:</strong> See documents sent by accountants.</li>
+                    <li><strong>Review:</strong> Open a document to see AI flags. Confirm or Reject them.</li>
+                    <li><strong>Verdict:</strong> Add professional comments and sign off.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Landing Page Form Handler
+        function handlePilotSubmit(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Show success message (in a real app, this would submit to a backend)
+            alert('Thank you for your interest in the CoFender Pilot Program! We will contact you within 24 hours to schedule your onboarding.');
+            
+            // Reset form
+            form.reset();
+            
+            // Update spots counter (simulated)
+            const spotsEl = document.getElementById('spots-remaining');
+            if (spotsEl) {
+                const currentSpots = parseInt(spotsEl.innerText);
+                if (currentSpots > 0) {
+                    spotsEl.innerText = currentSpots - 1;
+                }
+            }
+            
+            // Navigate to app
+            app.navigate('dashboard');
+        }
+
+        // Smooth scroll for landing page anchors
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.landing-nav-links a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#signup' || href.startsWith('#')) {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) {
+                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }
+                });
+            });
+        });
+
+        const app = {
+            data: {
+                documents: [],
+                currentUser: 'Accountant'
+            },
+            
+            currentUpload: null,
+            currentReviewId: null,
+
+            init() {
+                // Load from local storage
+                const stored = localStorage.getItem('cofender_data');
+                if (stored) {
+                    this.data.documents = JSON.parse(stored);
+                }
+                
+                // Check if user has visited before (show landing or dashboard)
+                const hasVisited = localStorage.getItem('cofender_visited');
+                if (hasVisited) {
+                    this.navigate('dashboard');
+                } else {
+                    this.navigate('landing');
+                }
+                
+                // Initialize Lucide icons
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+            },
+
+            save() {
+                localStorage.setItem('cofender_data', JSON.stringify(this.data.documents));
+                this.renderDashboard();
+                this.renderLawyerQueue();
+            },
+
+            navigate(screenId) {
+                // Handle landing page vs app screens
+                const isLanding = screenId === 'landing';
+                const appNav = document.getElementById('app-nav');
+                const landingScreen = document.getElementById('screen-landing');
+                
+                // Toggle navigation visibility
+                if (appNav) {
+                    appNav.style.display = isLanding ? 'none' : 'flex';
+                }
+                
+                // Hide all screens
+                document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+                document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+
+                // Show target screen
+                const targetScreen = document.getElementById(`screen-${screenId}`);
+                if (targetScreen) {
+                    targetScreen.classList.add('active');
+                }
+
+                // Update Nav for app screens
+                if (screenId === 'dashboard' || screenId === 'upload') {
+                    const navDashboard = document.getElementById('nav-dashboard');
+                    if (navDashboard) navDashboard.classList.add('active');
+                    localStorage.setItem('cofender_visited', 'true');
+                } else if (screenId === 'lawyer') {
+                    const navLawyer = document.getElementById('nav-lawyer');
+                    if (navLawyer) navLawyer.classList.add('active');
+                } else if (screenId === 'landing') {
+                    const navLanding = document.getElementById('nav-landing');
+                    if (navLanding) navLanding.classList.add('active');
+                } else if (screenId === 'guide') {
+                    const navGuide = document.getElementById('nav-guide');
+                    if (navGuide) navGuide.classList.add('active');
+                }
+
+                // Refresh tables
+                if (screenId === 'dashboard') this.renderDashboard();
+                if (screenId === 'lawyer') this.showLawyerQueue();
+                
+                // Re-initialize icons
+                setTimeout(() => {
+                    if (typeof lucide !== 'undefined') {
+                        lucide.createIcons();
+                    }
+                }, 50);
+            },
+
+            // --- DASHBOARD LOGIC ---
+            renderDashboard() {
+                const tbody = document.querySelector('#dashboard-table tbody');
+                tbody.innerHTML = '';
+                
+                // Counters
+                let processed = 0, pending = 0, finalized = 0;
+
+                this.data.documents.forEach((doc, index) => {
+                    if (doc.status === 'processed') processed++;
+                    if (doc.status === 'lawyer') pending++;
+                    if (doc.status === 'finalized') finalized++;
+
+                    const tr = document.createElement('tr');
+                    let statusBadge = '';
+                    let actionBtn = '';
+
+                    if (doc.status === 'lawyer') {
+                        statusBadge = '<span class="status-badge status-lawyer"><span class="dot"></span>In Review</span>';
+                        actionBtn = '<span style="color: var(--text-muted); font-size: 0.875rem;">Awaiting legal</span>';
+                    } else if (doc.status === 'finalized') {
+                        statusBadge = '<span class="status-badge status-finalized"><span class="dot"></span>Complete</span>';
+                        actionBtn = `<button class="btn btn-secondary btn-sm" onclick="app.viewReport(${doc.id})">View Report</button>`;
+                    } else {
+                        statusBadge = '<span class="status-badge status-processed"><span class="dot"></span>Processing</span>';
+                    }
+                    
+                    tr.innerHTML = `
+                        <td><strong>${doc.filename}</strong></td>
+                        <td>${doc.client}</td>
+                        <td>${new Date(doc.date).toLocaleDateString()}</td>
+                        <td>${statusBadge}</td>
+                        <td>${actionBtn}</td>
+                    `;
+                    tbody.prepend(tr);
+                });
+
+                if (this.data.documents.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 3rem;">No documents yet. Upload your first document to get started.</td></tr>';
+                }
+
+                document.getElementById('count-processed').innerText = this.data.documents.length;
+                document.getElementById('count-pending').innerText = pending;
+                document.getElementById('count-finalized').innerText = finalized;
+            },
+
+            // --- UPLOAD LOGIC ---
+            handleUpload(input) {
+                const file = input.files[0];
+                const clientName = document.getElementById('client-name-input').value || "Unknown Client";
+
+                if (!file) return;
+
+                // 1. Show Spinner
+                document.getElementById('upload-phase-1').style.display = 'none';
+                document.getElementById('upload-phase-2').style.display = 'block';
+
+                // 2. Simulate Delay
+                setTimeout(() => {
+                    document.getElementById('upload-phase-2').style.display = 'none';
+                    document.getElementById('upload-phase-3').style.display = 'block';
+                    
+                    // Temp store for "Send to Lawyer"
+                    this.currentUpload = {
+                        id: Date.now(),
+                        filename: file.name,
+                        client: clientName,
+                        date: new Date().toISOString(),
+                        status: 'processing'
+                    };
+                    
+                    // Re-initialize icons
+                    setTimeout(() => {
+                        if (typeof lucide !== 'undefined') {
+                            lucide.createIcons();
+                        }
+                    }, 50);
+                }, 2000);
+            },
+
+            sendToLawyer() {
+                if (!this.currentUpload) return;
+                
+                this.currentUpload.status = 'lawyer';
+                this.data.documents.push(this.currentUpload);
+                this.save();
+                
+                // Reset Upload Screen
+                document.getElementById('client-name-input').value = '';
+                document.getElementById('file-input').value = '';
+                document.getElementById('upload-phase-1').style.display = 'block';
+                document.getElementById('upload-phase-3').style.display = 'none';
+                
+                this.navigate('dashboard');
+            },
+
+            // --- LAWYER LOGIC ---
+            showLawyerQueue() {
+                document.getElementById('lawyer-queue-view').style.display = 'block';
+                document.getElementById('lawyer-work-view').style.display = 'none';
+                this.renderLawyerQueue();
+            },
+
+            renderLawyerQueue() {
+                const tbody = document.querySelector('#lawyer-table tbody');
+                tbody.innerHTML = '';
+                
+                const pendingDocs = this.data.documents.filter(d => d.status === 'lawyer');
+
+                if (pendingDocs.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color: var(--text-muted); padding: 3rem;">No documents waiting for review.</td></tr>';
+                    return;
+                }
+
+                pendingDocs.forEach(doc => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><strong>${doc.filename}</strong></td>
+                        <td>${doc.client}</td>
+                        <td>${new Date(doc.date).toLocaleDateString()}</td>
+                        <td><button class="btn btn-primary btn-sm" onclick="app.startReview(${doc.id})">Review</button></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            },
+
+            startReview(id) {
+                this.currentReviewId = id;
+                const doc = this.data.documents.find(d => d.id === id);
+                if(!doc) return;
+
+                document.getElementById('lawyer-doc-title').innerText = doc.filename;
+                
+                // Show Review Panel
+                document.getElementById('lawyer-queue-view').style.display = 'none';
+                document.getElementById('lawyer-work-view').style.display = 'block';
+                
+                // Re-initialize icons
+                setTimeout(() => {
+                    if (typeof lucide !== 'undefined') {
+                        lucide.createIcons();
+                    }
+                }, 50);
+            },
+
+            submitReview() {
+                // Capture inputs
+                const v1 = document.getElementById('verdict-1').value;
+                const c1 = document.getElementById('comment-1').value;
+                const v2 = document.getElementById('verdict-2').value;
+                const c2 = document.getElementById('comment-2').value;
+
+                // Update Doc
+                const docIndex = this.data.documents.findIndex(d => d.id === this.currentReviewId);
+                if (docIndex > -1) {
+                    this.data.documents[docIndex].status = 'finalized';
+                    this.data.documents[docIndex].verified = true;
+                    this.data.documents[docIndex].reviewData = {
+                        issue1: { verdict: v1, comment: c1 },
+                        issue2: { verdict: v2, comment: c2 },
+                        reviewer: 'Legal Team',
+                        date: new Date().toISOString()
+                    };
+                    this.save();
+                }
+
+                this.showLawyerQueue();
+            },
+
+            // --- SELF CORRECTION & DOWNLOAD LOGIC ---
+            downloadSelfReport() {
+                if (!this.currentUpload) return;
+                
+                // Capture self-corrections
+                const v1 = document.getElementById('self-verdict-1').value;
+                const c1 = document.getElementById('self-comment-1').value;
+                const v2 = document.getElementById('self-verdict-2').value;
+                const c2 = document.getElementById('self-comment-2').value;
+                
+                // Save document with unverified status
+                this.currentUpload.status = 'finalized';
+                this.currentUpload.verified = false;
+                this.currentUpload.reviewData = {
+                    issue1: { verdict: v1, comment: c1 },
+                    issue2: { verdict: v2, comment: c2 },
+                    reviewer: 'Self-Assessment',
+                    date: new Date().toISOString()
+                };
+                this.data.documents.push(this.currentUpload);
+                this.save();
+                
+                // Generate and download PDF directly
+                this.generateAndDownloadPdf(this.currentUpload);
+                
+                // Reset Upload Screen
+                document.getElementById('client-name-input').value = '';
+                document.getElementById('file-input').value = '';
+                document.getElementById('upload-phase-1').style.display = 'block';
+                document.getElementById('upload-phase-3').style.display = 'none';
+                
+                this.navigate('dashboard');
+            },
+
+            generateAndDownloadPdf(doc) {
+                const isVerified = doc.verified !== false;
+                const getBadgeText = (verdict) => verdict === 'Valid' ? 'Issue Confirmed - Action Required' : 'Dismissed - No Action Required';
+                const getBadgeColor = (verdict) => verdict === 'Valid' ? '#dc2626' : '#059669';
+                
+                const htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CoFender Compliance Report - ${doc.filename}</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; 
+            padding: 48px; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            color: #1e293b;
+            line-height: 1.6;
+        }
+        .header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: flex-start;
+            border-bottom: 2px solid #0f172a; 
+            padding-bottom: 24px; 
+            margin-bottom: 32px; 
+        }
+        .logo-section h1 { 
+            font-size: 20px; 
+            font-weight: 700;
+            margin: 0 0 4px 0; 
+            color: #0f172a; 
+        }
+        .logo-section p { 
+            color: #64748b; 
+            margin: 0; 
+            font-size: 13px;
+        }
+        .badge { 
+            padding: 12px 20px; 
+            border-radius: 8px; 
+            text-align: center; 
+        }
+        .badge.verified { 
+            background: #d1fae5; 
+        }
+        .badge.unverified { 
+            background: #fef3c7; 
+        }
+        .badge-title {
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+        .badge-subtitle {
+            font-size: 11px;
+            opacity: 0.8;
+        }
+        .meta { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 12px; 
+            margin-bottom: 32px; 
+            padding: 16px; 
+            background: #f8fafc; 
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .meta-label {
+            color: #64748b;
+            font-size: 12px;
+        }
+        .meta-value {
+            font-weight: 600;
+            color: #0f172a;
+        }
+        h2 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 16px;
+        }
+        .finding { 
+            margin-bottom: 20px; 
+            padding: 20px; 
+            background: #f8fafc; 
+            border-radius: 8px; 
+            border-left: 4px solid #6366f1; 
+        }
+        .finding h3 { 
+            margin: 0 0 8px 0; 
+            color: #0f172a;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .finding p {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 12px;
+        }
+        .verdict { 
+            padding: 12px; 
+            background: white; 
+            border-radius: 6px;
+            font-size: 13px;
+        }
+        .verdict-row {
+            display: flex;
+            margin-bottom: 6px;
+        }
+        .verdict-label {
+            font-weight: 600;
+            min-width: 80px;
+        }
+        .footer { 
+            margin-top: 48px; 
+            padding-top: 24px; 
+            border-top: 1px solid #e2e8f0; 
+            text-align: center; 
+            color: #64748b; 
+            font-size: 12px; 
+        }
+        .footer p {
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-section">
+            <h1>CoFender Compliance Audit</h1>
+            <p>Generated on ${new Date(doc.reviewData.date).toLocaleString()}</p>
+        </div>
+        <div class="badge ${isVerified ? 'verified' : 'unverified'}">
+            <div class="badge-title" style="color: ${isVerified ? '#059669' : '#d97706'}">
+                ${isVerified ? 'VERIFIED' : 'UNVERIFIED'}
+            </div>
+            <div class="badge-subtitle" style="color: ${isVerified ? '#065f46' : '#92400e'}">
+                ${isVerified ? 'Legal Team' : 'Self-Assessment'}
+            </div>
+        </div>
+    </div>
+    
+    <div class="meta">
+        <div class="meta-item">
+            <span class="meta-label">File Name</span>
+            <span class="meta-value">${doc.filename}</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Client</span>
+            <span class="meta-value">${doc.client}</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Reviewed By</span>
+            <span class="meta-value">${doc.reviewData.reviewer}</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Date</span>
+            <span class="meta-value">${new Date(doc.reviewData.date).toLocaleDateString()}</span>
+        </div>
+    </div>
+    
+    <h2>Audit Findings</h2>
+    
+    <div class="finding">
+        <h3>1. Missing Data Protection Officer (DPO) Contact</h3>
+        <p>The document mentions data processing but fails to specify a DPO contact as required by GDPR Article 13.</p>
+        <div class="verdict">
+            <div class="verdict-row">
+                <span class="verdict-label">Verdict:</span>
+                <span style="color: ${getBadgeColor(doc.reviewData.issue1.verdict)}">${getBadgeText(doc.reviewData.issue1.verdict)}</span>
+            </div>
+            <div class="verdict-row">
+                <span class="verdict-label">Comment:</span>
+                <span>"${doc.reviewData.issue1.comment}"</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="finding">
+        <h3>2. Vague Data Retention Period</h3>
+        <p>Clause 4.2 states "data will be kept for as long as needed" which is too vague under GDPR storage limitation principles.</p>
+        <div class="verdict">
+            <div class="verdict-row">
+                <span class="verdict-label">Verdict:</span>
+                <span style="color: ${getBadgeColor(doc.reviewData.issue2.verdict)}">${getBadgeText(doc.reviewData.issue2.verdict)}</span>
+            </div>
+            <div class="verdict-row">
+                <span class="verdict-label">Comment:</span>
+                <span>"${doc.reviewData.issue2.comment}"</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>Generated by CoFender AI ${isVerified ? '• Verified by Legal Team' : '• Self-Assessment (Unverified)'}</p>
+        <p>Report ID: ${doc.id} | © ${new Date().getFullYear()} CoFender</p>
+    </div>
+</body>
+</html>`;
+                
+                // Create blob and download
+                const blob = new Blob([htmlContent], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                
+                const downloadLink = document.createElement('a');
+                downloadLink.href = url;
+                downloadLink.download = `CoFender_Report_${doc.filename.replace(/\.[^/.]+$/, '')}_${new Date().toISOString().split('T')[0]}.html`;
+                downloadLink.click();
+                
+                setTimeout(() => {
+                    URL.revokeObjectURL(url);
+                }, 1000);
+            },
+
+            downloadReportAsPdf() {
+                const reportId = this.currentReportId;
+                const doc = this.data.documents.find(d => d.id === reportId);
+                if (!doc) return;
+                
+                this.generateAndDownloadPdf(doc);
+            },
+
+            // --- REPORT LOGIC ---
+            viewReport(id) {
+                this.currentReportId = id;
+                const doc = this.data.documents.find(d => d.id === id);
+                if(!doc || !doc.reviewData) return;
+
+                document.getElementById('report-filename').innerText = doc.filename;
+                document.getElementById('report-client').innerText = doc.client;
+                document.getElementById('report-meta').innerText = `Generated on ${new Date(doc.reviewData.date).toLocaleString()}`;
+                
+                // Update verification badge based on doc.verified status
+                const badgeContainer = document.getElementById('report-verification-badge');
+                const isVerified = doc.verified !== false;
+                if (isVerified) {
+                    badgeContainer.className = 'verification-badge verified';
+                    badgeContainer.innerHTML = `
+                        <div style="font-weight: 700; color: var(--success); font-size: 1rem;">VERIFIED</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Legal Team</div>
+                    `;
+                } else {
+                    badgeContainer.className = 'verification-badge unverified';
+                    badgeContainer.innerHTML = `
+                        <div style="font-weight: 700; color: var(--warning); font-size: 1rem;">UNVERIFIED</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Self-Assessment</div>
+                    `;
+                }
+
+                const findingsContainer = document.getElementById('report-findings');
+                
+                // Helper for badge
+                const getBadge = (verdict) => verdict === 'Valid' 
+                    ? '<span style="color: var(--danger); font-weight: 600;">Issue Confirmed</span>' 
+                    : '<span style="color: var(--success); font-weight: 600;">Dismissed</span>';
+
+                findingsContainer.innerHTML = `
+                    <div style="margin-bottom: 1.5rem; padding: 1.25rem; background: var(--bg-light); border-radius: 8px; border-left: 4px solid var(--accent);">
+                        <h4 style="margin-bottom: 0.5rem; font-size: 0.9375rem;">1. Missing DPO Contact Information</h4>
+                        <p style="font-size: 0.8125rem; color: var(--text-muted); margin-bottom: 0.75rem;">The document fails to specify a DPO contact as required by GDPR Article 13.</p>
+                        <div style="background: white; padding: 0.75rem; border-radius: 6px; font-size: 0.8125rem;">
+                            <div style="margin-bottom: 0.375rem;">
+                                <span style="color: var(--text-muted);">Verdict:</span> ${getBadge(doc.reviewData.issue1.verdict)}
+                            </div>
+                            <div>
+                                <span style="color: var(--text-muted);">Comment:</span> "${doc.reviewData.issue1.comment}"
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem; padding: 1.25rem; background: var(--bg-light); border-radius: 8px; border-left: 4px solid var(--accent);">
+                        <h4 style="margin-bottom: 0.5rem; font-size: 0.9375rem;">2. Vague Data Retention Period</h4>
+                        <p style="font-size: 0.8125rem; color: var(--text-muted); margin-bottom: 0.75rem;">Clause 4.2 uses language that doesn't meet GDPR storage limitation requirements.</p>
+                        <div style="background: white; padding: 0.75rem; border-radius: 6px; font-size: 0.8125rem;">
+                            <div style="margin-bottom: 0.375rem;">
+                                <span style="color: var(--text-muted);">Verdict:</span> ${getBadge(doc.reviewData.issue2.verdict)}
+                            </div>
+                            <div>
+                                <span style="color: var(--text-muted);">Comment:</span> "${doc.reviewData.issue2.comment}"
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                this.navigate('report');
+            }
+        };
+
+        // Start
+        window.addEventListener('DOMContentLoaded', () => {
+            app.init();
+        });
+    </script>
+</body>
+</html>

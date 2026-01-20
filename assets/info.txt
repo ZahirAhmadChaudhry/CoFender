@@ -1,0 +1,7 @@
+This folder is reserved for local static assets.
+
+For this self-contained MVP, the "sample.pdf" has been embedded directly into index.html as a Base64 string to ensure the demo works immediately without worrying about local file path permissions or web server requirements.
+
+If you wish to use a real local PDF:
+1. Place a file named 'sample.pdf' here.
+2. Edit index.html to point the PDF.js `url` parameter to 'assets/sample.pdf' instead of the Base64 data.
