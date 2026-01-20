@@ -2800,13 +2800,8 @@
                     this.data.documents = JSON.parse(stored);
                 }
                 
-                // Check if user has visited before (show landing or dashboard)
-                const hasVisited = localStorage.getItem('cofender_visited');
-                if (hasVisited) {
-                    this.navigate('dashboard');
-                } else {
-                    this.navigate('landing');
-                }
+                // Always start at landing page as per user request
+                this.navigate('landing');
                 
                 // Initialize Lucide icons
                 if (typeof lucide !== 'undefined') {
