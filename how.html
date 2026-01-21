@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoFender - How It Works</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #0f4c8a;
+            --accent-hover: #0d3f73;
+            --accent-light: #e0f2fe;
+            --success: #059669;
+            --success-light: #d1fae5;
+            --warning: #d97706;
+            --warning-light: #fef3c7;
+            --danger: #dc2626;
+            --danger-light: #fee2e2;
+            --bg-light: #f8fafc;
+            --bg-dark: #0f172a;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --text-light: #94a3b8;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+            --radius-lg: 16px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .demo-wrapper {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Progress bar at top */
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--success));
+            width: 0%;
+            transition: width 2.5s linear;
+        }
+
+        /* Step indicators */
+        .step-indicators {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 2rem;
+            z-index: 10;
+        }
+
+        .step-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .step-dot.active {
+            background: white;
+            transform: scale(1.3);
+            box-shadow: 0 0 20px rgba(255,255,255,0.5);
+        }
+
+        .step-dot.completed {
+            background: var(--success);
+        }
+
+        /* Main demo frame */
+        .demo-frame {
+            position: relative;
+            width: 1000px;
+            height: 500px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow-xl), 0 0 100px rgba(15, 76, 138, 0.2);
+            overflow: hidden;
+        }
+
+        /* Browser chrome */
+        .browser-chrome {
+            height: 44px;
+            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            gap: 8px;
+        }
+
+        .browser-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .browser-dot.red { background: #ff5f57; }
+        .browser-dot.yellow { background: #febc2e; }
+        .browser-dot.green { background: #28c840; }
+
+        .browser-url {
+            flex: 1;
+            margin-left: 16px;
+            height: 28px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 12px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Demo content area */
+        .demo-content {
+            position: relative;
+            height: calc(100% - 44px);
+            background: var(--bg-light);
+            overflow: hidden;
+            border-radius: 0 0 20px 20px;
+        }
+
+        /* Slides */
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+
+        .slide.exit {
+            opacity: 0;
+            transform: translateX(-60px);
+        }
+
+        /* Floating label */
+        .floating-label {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            transform: translateX(-30px);
+            background: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 10px;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+            z-index: 20;
+            text-align: left;
+        }
+
+        .slide.active .floating-label {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .floating-label .step-num {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--accent-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .floating-label h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 0;
+        }
+
+        .floating-label p {
+            font-size: 13px;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        /* ===== SLIDE 1: UPLOAD ===== */
+        .upload-scene {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 40px;
+        }
+
+        .dropzone {
+            width: 400px;
+            padding: 60px 40px;
+            border: 2px dashed var(--border);
+            border-radius: 16px;
+            background: white;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .slide.active .dropzone {
+            animation: dropzonePulse 2s ease-in-out;
+        }
+
+        @keyframes dropzonePulse {
+            0%, 100% { border-color: var(--border); background: white; }
+            50% { border-color: var(--accent); background: var(--accent-light); }
+        }
+
+        .dropzone-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--accent-light);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            color: var(--accent);
+        }
+
+        .dropzone h4 {
+            font-size: 16px;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .dropzone span {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .file-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            margin-top: 20px;
+            width: 400px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .slide.active .file-card {
+            animation: fileSlideIn 0.5s ease-out 0.8s forwards;
+        }
+
+        @keyframes fileSlideIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .file-icon {
+            width: 40px;
+            height: 40px;
+            background: #fee2e2;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #dc2626;
+        }
+
+        .file-info { flex: 1; text-align: left; }
+        .file-name { font-size: 14px; font-weight: 600; color: var(--primary); }
+        .file-size { font-size: 12px; color: var(--text-muted); }
+
+        .file-check {
+            color: var(--success);
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        .slide.active .file-check {
+            animation: checkPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.2s forwards;
+        }
+
+        @keyframes checkPop {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Cursor animation */
+        .cursor {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .cursor svg {
+            filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.3));
+        }
+
+        .slide.active .cursor {
+            animation: cursorMove 2s ease-in-out forwards;
+        }
+
+        @keyframes cursorMove {
+            0% { opacity: 0; transform: translate(200px, 50px); }
+            20% { opacity: 1; transform: translate(200px, 50px); }
+            60% { opacity: 1; transform: translate(0px, 0px); }
+            70% { opacity: 1; transform: translate(0px, 0px) scale(0.9); }
+            80% { opacity: 1; transform: translate(0px, 0px) scale(1); }
+            100% { opacity: 1; transform: translate(0px, 0px); }
+        }
+
+        .cursor-click {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(15, 76, 138, 0.3);
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+        }
+
+        .slide.active .cursor-click {
+            animation: clickRipple 0.5s ease-out 1.4s forwards;
+        }
+
+        @keyframes clickRipple {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+        }
+
+        /* ===== SLIDE 2: AI SCAN ===== */
+        .scan-scene {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 40px;
+        }
+
+        .document-preview {
+            width: 500px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .doc-header {
+            padding: 12px 16px;
+            background: var(--bg-light);
+            border-bottom: 1px solid var(--border);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .doc-body {
+            padding: 24px;
+            font-family: 'Times New Roman', Georgia, serif;
+            font-size: 13px;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .doc-body strong {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .highlight-line {
+            position: relative;
+            display: inline;
+            background: transparent;
+            transition: background 0.4s ease;
+        }
+
+        .slide.active .highlight-line.warn {
+            animation: highlightWarn 0.5s ease 0.6s forwards;
+        }
+
+        .slide.active .highlight-line.danger {
+            animation: highlightDanger 0.5s ease 1s forwards;
+        }
+
+        @keyframes highlightWarn {
+            to { background: linear-gradient(to right, #fef3c7, #fde68a); }
+        }
+
+        @keyframes highlightDanger {
+            to { background: linear-gradient(to right, #fee2e2, #fecaca); }
+        }
+
+        .issue-tag {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%) translateX(calc(100% + 8px)) scale(0);
+            background: var(--warning);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .issue-tag.danger { background: var(--danger); }
+
+        .slide.active .highlight-line.warn .issue-tag {
+            animation: tagPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.8s forwards;
+        }
+
+        .slide.active .highlight-line.danger .issue-tag {
+            animation: tagPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.2s forwards;
+        }
+
+        @keyframes tagPop {
+            to { transform: translateY(-50%) translateX(calc(100% + 8px)) scale(1); }
+        }
+
+        .scan-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: var(--warning-light);
+            margin: 16px 24px 24px;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--warning);
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .slide.active .scan-status {
+            animation: statusSlide 0.4s ease 1.5s forwards;
+        }
+
+        @keyframes statusSlide {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* AI Loading animation */
+        .ai-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 40px;
+        }
+
+        .loading-card {
+            background: white;
+            padding: 48px 64px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+        }
+
+        .loading-spinner {
+            width: 64px;
+            height: 64px;
+            border: 4px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            margin: 0 auto 24px;
+            opacity: 0;
+        }
+
+        .slide.active .loading-spinner {
+            animation: spinnerFade 0.3s ease forwards, spin 1s linear infinite 0.3s;
+        }
+
+        @keyframes spinnerFade {
+            to { opacity: 1; }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+            opacity: 0;
+        }
+
+        .slide.active .loading-text {
+            animation: textFade 0.4s ease 0.2s forwards;
+        }
+
+        .loading-subtext {
+            font-size: 14px;
+            color: var(--text-muted);
+            opacity: 0;
+        }
+
+        .slide.active .loading-subtext {
+            animation: textFade 0.4s ease 0.4s forwards;
+        }
+
+        @keyframes textFade {
+            to { opacity: 1; }
+        }
+
+        .loading-dots {
+            display: inline-flex;
+            gap: 4px;
+            margin-left: 4px;
+        }
+
+        .loading-dots span {
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: dotPulse 1.4s ease-in-out infinite;
+        }
+
+        .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes dotPulse {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Send to lawyer animation */
+        .send-scene {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 40px;
+            gap: 32px;
+        }
+
+        .send-visual {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+        }
+
+        .send-doc, .send-lawyer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+        }
+
+        .slide.active .send-doc {
+            animation: slideInLeft 0.5s ease forwards;
+        }
+
+        .slide.active .send-lawyer {
+            animation: slideInRight2 0.5s ease 0.3s forwards;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight2 {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .send-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .send-doc .send-icon {
+            background: var(--accent-light);
+            color: var(--accent);
+        }
+
+        .send-lawyer .send-icon {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .send-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .send-arrow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            opacity: 0;
+        }
+
+        .slide.active .send-arrow {
+            animation: arrowPulse 0.5s ease 0.6s forwards;
+        }
+
+        @keyframes arrowPulse {
+            to { opacity: 1; }
+        }
+
+        .arrow-line {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .arrow-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: dotMove 1s ease-in-out infinite;
+        }
+
+        .arrow-dot:nth-child(2) { animation-delay: 0.15s; }
+        .arrow-dot:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes dotMove {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .send-status {
+            font-size: 13px;
+            color: var(--text-muted);
+            opacity: 0;
+        }
+
+        .slide.active .send-status {
+            animation: textFade 0.4s ease 0.8s forwards;
+        }
+
+        /* ===== SLIDE 5: LAWYER REVIEW ===== */
+        .review-scene {
+            display: flex;
+            gap: 24px;
+            align-items: stretch;
+            justify-content: flex-end;
+            height: 100%;
+            padding: 60px 60px 40px 40px;
+        }
+
+        .review-doc {
+            width: 380px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .slide.active .review-doc {
+            animation: slideRight 0.5s ease 0.2s forwards;
+        }
+
+        @keyframes slideRight {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .review-doc-header {
+            padding: 12px 16px;
+            background: var(--bg-light);
+            border-bottom: 1px solid var(--border);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .review-doc-body {
+            padding: 20px;
+            font-family: 'Times New Roman', Georgia, serif;
+            font-size: 12px;
+            line-height: 1.7;
+            color: #333;
+        }
+
+        .review-doc-body strong {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .review-highlight {
+            position: relative;
+            display: inline;
+            background: linear-gradient(to right, #fef3c7, #fde68a);
+            padding: 1px 3px;
+            border-radius: 2px;
+        }
+
+        .review-highlight.danger {
+            background: linear-gradient(to right, #fee2e2, #fecaca);
+        }
+
+        .review-tag {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%) translateX(calc(100% + 6px));
+            background: var(--warning);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 9px;
+            font-weight: 600;
+            padding: 3px 6px;
+            border-radius: 3px;
+            white-space: nowrap;
+        }
+
+        .review-tag.danger {
+            background: var(--danger);
+        }
+
+        .review-panel {
+            width: 340px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        .slide.active .review-panel {
+            animation: slideLeft 0.5s ease 0.4s forwards;
+        }
+
+        @keyframes slideLeft {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .lawyer-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .lawyer-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .lawyer-name { font-size: 14px; font-weight: 600; color: var(--primary); }
+        .lawyer-title { font-size: 12px; color: var(--text-muted); }
+
+        .review-items { padding: 16px; }
+
+        .review-item {
+            background: var(--bg-light);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .slide.active .review-item:nth-child(1) {
+            animation: itemSlide 0.4s ease 0.8s forwards;
+        }
+
+        .slide.active .review-item:nth-child(2) {
+            animation: itemSlide 0.4s ease 1.1s forwards;
+        }
+
+        @keyframes itemSlide {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .item-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--warning);
+            margin-bottom: 4px;
+        }
+
+        .item-fix {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .item-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--success);
+            opacity: 0;
+        }
+
+        .slide.active .review-item:nth-child(1) .item-status {
+            animation: checkFade 0.3s ease 1s forwards;
+        }
+
+        .slide.active .review-item:nth-child(2) .item-status {
+            animation: checkFade 0.3s ease 1.3s forwards;
+        }
+
+        @keyframes checkFade {
+            to { opacity: 1; }
+        }
+
+        /* ===== SLIDE 4: CERTIFICATE ===== */
+        .cert-scene {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 40px;
+        }
+
+        .certificate {
+            width: 360px;
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.9) translateY(20px);
+        }
+
+        .slide.active .certificate {
+            animation: certPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards;
+        }
+
+        @keyframes certPop {
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .cert-header {
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .cert-logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .cert-title {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 4px;
+        }
+
+        .cert-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--success-light);
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        .slide.active .cert-badge {
+            animation: badgePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.6s forwards;
+        }
+
+        @keyframes badgePop {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .badge-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .badge-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--success);
+        }
+
+        .cert-details {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .cert-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+            opacity: 0;
+        }
+
+        .slide.active .cert-row:nth-child(1) { animation: rowFade 0.3s ease 0.8s forwards; }
+        .slide.active .cert-row:nth-child(2) { animation: rowFade 0.3s ease 0.9s forwards; }
+        .slide.active .cert-row:nth-child(3) { animation: rowFade 0.3s ease 1s forwards; }
+
+        @keyframes rowFade {
+            to { opacity: 1; }
+        }
+
+        .cert-row span:first-child { color: var(--text-muted); }
+        .cert-row span:last-child { font-weight: 500; color: var(--primary); }
+
+        .cert-signature {
+            padding-top: 16px;
+            opacity: 0;
+        }
+
+        .slide.active .cert-signature {
+            animation: sigFade 0.5s ease 1.2s forwards;
+        }
+
+        @keyframes sigFade {
+            to { opacity: 1; }
+        }
+
+        .sig-line {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 24px;
+            color: var(--primary);
+        }
+
+        .sig-name {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-wrapper">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="step-indicators">
+            <div class="step-dot active" data-step="0"></div>
+            <div class="step-dot" data-step="1"></div>
+            <div class="step-dot" data-step="2"></div>
+            <div class="step-dot" data-step="3"></div>
+            <div class="step-dot" data-step="4"></div>
+            <div class="step-dot" data-step="5"></div>
+        </div>
+
+        <div class="demo-frame">
+            <div class="browser-chrome">
+                <div class="browser-dot red"></div>
+                <div class="browser-dot yellow"></div>
+                <div class="browser-dot green"></div>
+                <div class="browser-url">
+                    <i data-lucide="lock" style="width:12px;height:12px;margin-right:6px;color:var(--success);"></i>
+                    CoFender Demo
+                </div>
+            </div>
+
+            <div class="demo-content">
+                <!-- Slide 1: Upload -->
+                <div class="slide active" data-slide="0">
+                    <div class="upload-scene">
+                        <div class="dropzone" style="position:relative;">
+                            <div class="dropzone-icon">
+                                <i data-lucide="upload-cloud" style="width:28px;height:28px;"></i>
+                            </div>
+                            <h4>Drop your contract here</h4>
+                            <span>PDF or Word up to 10MB</span>
+                            <!-- Cursor -->
+                            <div class="cursor" style="top:50%;left:50%;">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87c.48 0 .72-.58.38-.92L6.35 2.85a.5.5 0 0 0-.85.36Z" fill="#0f172a" stroke="#fff" stroke-width="1.5"/>
+                                </svg>
+                            </div>
+                            <div class="cursor-click" style="top:50%;left:50%;"></div>
+                        </div>
+                        <div class="file-card">
+                            <div class="file-icon">
+                                <i data-lucide="file-text" style="width:20px;height:20px;"></i>
+                            </div>
+                            <div class="file-info">
+                                <div class="file-name">DPA_Client_Durand.pdf</div>
+                                <div class="file-size">245 KB</div>
+                            </div>
+                            <i data-lucide="check-circle" class="file-check" style="width:22px;height:22px;"></i>
+                        </div>
+                    </div>
+                    <div class="floating-label">
+                        <div class="step-num">Step 1</div>
+                        <h3>Upload Contract</h3>
+                    </div>
+                </div>
+
+                <!-- Slide 2: AI Loading -->
+                <div class="slide" data-slide="1">
+                    <div class="ai-loading">
+                        <div class="loading-card">
+                            <div class="loading-spinner"></div>
+                            <div class="loading-text">
+                                AI is analyzing your document
+                                <span class="loading-dots">
+                                    <span></span><span></span><span></span>
+                                </span>
+                            </div>
+                            <div class="loading-subtext">Scanning for GDPR compliance issues</div>
+                        </div>
+                    </div>
+                    <div class="floating-label">
+                        <div class="step-num">Step 2</div>
+                        <h3>AI Analysis</h3>
+                    </div>
+                </div>
+
+                <!-- Slide 3: AI Results -->
+                <div class="slide" data-slide="2">
+                    <div class="scan-scene">
+                        <div class="document-preview">
+                            <div class="doc-header">
+                                <i data-lucide="file-text" style="width:14px;height:14px;"></i>
+                                DPA_Client_Durand.pdf
+                            </div>
+                            <div class="doc-body">
+                                <strong>Article 3 - Data Retention</strong>
+                                The Processor shall retain personal data for the duration necessary to fulfill the purposes outlined in this agreement.<br><br>
+                                <span class="highlight-line warn">
+                                    For data protection inquiries, contact the relevant department.
+                                    <span class="issue-tag">Missing DPO</span>
+                                </span><br><br>
+                                <span class="highlight-line danger">
+                                    Data will be kept as long as needed.
+                                    <span class="issue-tag danger">Vague period</span>
+                                </span>
+                            </div>
+                            <div class="scan-status">
+                                <i data-lucide="alert-triangle" style="width:16px;height:16px;"></i>
+                                2 potential issues detected
+                            </div>
+                        </div>
+                    </div>
+                    <div class="floating-label">
+                        <div class="step-num">Step 3</div>
+                        <h3>Issues Found</h3>
+                    </div>
+                </div>
+
+                <!-- Slide 4: Send to Lawyer -->
+                <div class="slide" data-slide="3">
+                    <div class="send-scene">
+                        <div class="send-visual">
+                            <div class="send-doc">
+                                <div class="send-icon">
+                                    <i data-lucide="file-text" style="width:36px;height:36px;"></i>
+                                </div>
+                                <div class="send-label">Your Document</div>
+                            </div>
+                            <div class="send-arrow">
+                                <div class="arrow-line">
+                                    <div class="arrow-dot"></div>
+                                    <div class="arrow-dot"></div>
+                                    <div class="arrow-dot"></div>
+                                    <i data-lucide="arrow-right" style="width:24px;height:24px;"></i>
+                                </div>
+                                <div class="send-status">Sending for review...</div>
+                            </div>
+                            <div class="send-lawyer">
+                                <div class="send-icon">
+                                    <i data-lucide="user-check" style="width:36px;height:36px;"></i>
+                                </div>
+                                <div class="send-label">Expert Lawyer</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="floating-label">
+                        <div class="step-num">Step 4</div>
+                        <h3>Send to Lawyer</h3>
+                    </div>
+                </div>
+
+                <!-- Slide 5: Lawyer Review -->
+                <div class="slide" data-slide="4">
+                    <div class="review-scene">
+                        <div class="review-doc">
+                            <div class="review-doc-header">
+                                <i data-lucide="file-text" style="width:14px;height:14px;"></i>
+                                DPA_Client_Durand.pdf
+                            </div>
+                            <div class="review-doc-body">
+                                <strong>Article 3 - Data Retention</strong>
+                                The Processor shall retain personal data for the duration necessary to fulfill the purposes outlined in this agreement.<br><br>
+                                <span class="review-highlight">
+                                    For data protection inquiries, contact the relevant department.
+                                    <span class="review-tag">Missing DPO</span>
+                                </span><br><br>
+                                <span class="review-highlight danger">
+                                    Data will be kept as long as needed.
+                                    <span class="review-tag danger">Vague period</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="review-panel">
+                            <div class="lawyer-header">
+                                <div class="lawyer-avatar">ML</div>
+                                <div>
+                                    <div class="lawyer-name">Me. Laurent</div>
+                                    <div class="lawyer-title">Data Protection Lawyer</div>
+                                </div>
+                            </div>
+                            <div class="review-items">
+                                <div class="review-item">
+                                    <div class="item-label">Issue #1: Missing DPO</div>
+                                    <div class="item-fix">Add: dpo@client.com</div>
+                                    <div class="item-status">
+                                        <i data-lucide="check" style="width:12px;height:12px;"></i>
+                                        Confirmed
+                                    </div>
+                                </div>
+                                <div class="review-item">
+                                    <div class="item-label">Issue #2: Retention Period</div>
+                                    <div class="item-fix">Specify: "5 years from contract end"</div>
+                                    <div class="item-status">
+                                        <i data-lucide="check" style="width:12px;height:12px;"></i>
+                                        Confirmed
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="floating-label">
+                        <div class="step-num">Step 5</div>
+                        <h3>Lawyer Review</h3>
+                    </div>
+                </div>
+
+                <!-- Slide 6: Certificate -->
+                <div class="slide" data-slide="5">
+                    <div class="cert-scene">
+                        <div class="certificate">
+                            <div class="cert-header">
+                                <div class="cert-logo">CoFender</div>
+                                <div class="cert-title">Compliance Certificate</div>
+                            </div>
+                            <div class="cert-badge">
+                                <div class="badge-icon">
+                                    <i data-lucide="shield-check" style="width:14px;height:14px;"></i>
+                                </div>
+                                <div class="badge-text">Lawyer Verified</div>
+                            </div>
+                            <div class="cert-details">
+                                <div class="cert-row">
+                                    <span>Document</span>
+                                    <span>DPA_Client_Durand.pdf</span>
+                                </div>
+                                <div class="cert-row">
+                                    <span>Review Date</span>
+                                    <span>21 Jan 2026</span>
+                                </div>
+                                <div class="cert-row">
+                                    <span>Issues</span>
+                                    <span>2 (resolved)</span>
+                                </div>
+                            </div>
+                            <div class="cert-signature">
+                                <div class="sig-line">M. Laurent</div>
+                                <div class="sig-name">Me. Marie Laurent, Avocat</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="floating-label">
+                        <div class="step-num">Step 6</div>
+                        <h3>Get Certificate</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.step-dot');
+        const progressFill = document.getElementById('progressFill');
+        let current = 0;
+        const duration = 2500; // 2.5 seconds per slide
+
+        function goToSlide(index) {
+            // Update slides
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active', 'exit');
+                if (i === current) slide.classList.add('exit');
+                if (i === index) setTimeout(() => slide.classList.add('active'), 50);
+            });
+
+            // Update dots
+            dots.forEach((dot, i) => {
+                dot.classList.remove('active', 'completed');
+                if (i < index) dot.classList.add('completed');
+                if (i === index) dot.classList.add('active');
+            });
+
+            // Reset and animate progress
+            progressFill.style.transition = 'none';
+            progressFill.style.width = (index * 16.67) + '%';
+            setTimeout(() => {
+                progressFill.style.transition = `width ${duration}ms linear`;
+                progressFill.style.width = ((index + 1) * 16.67) + '%';
+            }, 50);
+
+            current = index;
+        }
+
+        // Click on dots to navigate
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                goToSlide(parseInt(dot.dataset.step));
+            });
+        });
+
+        // Auto-advance
+        function nextSlide() {
+            const next = (current + 1) % slides.length;
+            goToSlide(next);
+        }
+
+        // Initial progress animation
+        progressFill.style.transition = `width ${duration}ms linear`;
+        progressFill.style.width = '16.67%';
+
+        setInterval(nextSlide, duration);
+    </script>
+</body>
+</html>

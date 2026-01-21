@@ -840,6 +840,23 @@
             color: var(--text-muted);
         }
 
+        /* How It Works Demo Iframe */
+        .how-demo-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+
+        .how-demo-iframe {
+            width: 100%;
+            height: 650px;
+            border: none;
+            display: block;
+        }
+
         /* Pilot CTA Section */
         .pilot-section {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
@@ -1119,6 +1136,46 @@
             font-size: 0.8125rem;
             color: var(--text-muted);
             margin-top: 1rem;
+        }
+
+        /* Form Success Message */
+        .form-success {
+            text-align: center;
+            padding: 2rem;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .form-success-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--success-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: var(--success);
+        }
+
+        .form-success h3 {
+            color: var(--success);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-success p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Footer */
@@ -2027,184 +2084,8 @@
                 <p>From upload to signed certificate in under 48 hours</p>
             </div>
             
-            <div class="visual-workflow">
-                <!-- Step 1: Upload -->
-                <div class="workflow-row">
-                    <div class="workflow-text">
-                        <div class="workflow-step-badge">
-                            <span>Step 1</span>
-                        </div>
-                        <h3>Upload Your Contract</h3>
-                        <p>Drag and drop your DPA, client agreement, or privacy notice. We accept PDF and Word documents up to 10MB.</p>
-                    </div>
-                    <div class="workflow-visual-card">
-                        <div class="visual-upload">
-                            <div class="upload-dropzone">
-                                <div class="upload-dropzone-icon">
-                                    <i data-lucide="upload-cloud" class="icon-lg"></i>
-                                </div>
-                                <h4>Drop your file here</h4>
-                                <p>or click to browse</p>
-                            </div>
-                            <div class="file-preview">
-                                <div class="file-preview-icon">
-                                    <i data-lucide="file-text" style="width: 18px; height: 18px;"></i>
-                                </div>
-                                <div class="file-preview-info">
-                                    <div class="file-preview-name">DPA_Client_Durand.pdf</div>
-                                    <div class="file-preview-size">245 KB</div>
-                                </div>
-                                <i data-lucide="check-circle" style="width: 18px; height: 18px; color: var(--success);"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="workflow-connector">
-                    <div class="connector-arrow">
-                        <i data-lucide="arrow-down" class="icon"></i>
-                    </div>
-                </div>
-
-                <!-- Step 2: AI Scan -->
-                <div class="workflow-row">
-                    <div class="workflow-text">
-                        <div class="workflow-step-badge">
-                            <span>Step 2</span>
-                        </div>
-                        <h3>AI Highlights Issues</h3>
-                        <p>In seconds, our AI scans your document and highlights potential GDPR issues: missing clauses, vague language, or compliance gaps.</p>
-                    </div>
-                    <div class="workflow-visual-card">
-                        <div class="visual-scan">
-                            <div class="scan-document">
-                                <p style="margin-bottom: 0.5rem;"><strong>Article 3 - Data Retention</strong></p>
-                                <p style="margin-bottom: 0.75rem;">The Processor shall retain personal data for the duration necessary to fulfill the purposes outlined in this agreement.</p>
-                                <p style="position: relative; margin-bottom: 0.75rem;">
-                                    <span class="scan-highlight">For data protection inquiries, contact the relevant department.</span>
-                                    <span class="scan-tag">Missing DPO contact</span>
-                                </p>
-                                <p style="position: relative;">
-                                    <span class="scan-highlight scan-highlight-red">Data will be kept as long as needed.</span>
-                                    <span class="scan-tag scan-tag-red">Vague retention period</span>
-                                </p>
-                            </div>
-                            <div class="scan-status">
-                                <i data-lucide="alert-triangle" style="width: 16px; height: 16px;"></i>
-                                2 potential issues detected
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="workflow-connector">
-                    <div class="connector-arrow">
-                        <i data-lucide="arrow-down" class="icon"></i>
-                    </div>
-                </div>
-
-                <!-- Step 3: Lawyer Review -->
-                <div class="workflow-row">
-                    <div class="workflow-text">
-                        <div class="workflow-step-badge">
-                            <span>Step 3</span>
-                        </div>
-                        <h3>Lawyer Reviews</h3>
-                        <p>A licensed French lawyer reviews the AI findings, confirms or dismisses each issue, and provides specific recommendations for fixes.</p>
-                    </div>
-                    <div class="workflow-visual-card">
-                        <div class="visual-review">
-                            <div class="review-doc-mini">
-                                <div class="review-doc-mini-header">Document Preview</div>
-                                <div class="review-doc-lines">
-                                    <div class="review-doc-line" style="width: 80%;"></div>
-                                    <div class="review-doc-line" style="width: 100%;"></div>
-                                    <div class="review-doc-line highlight" style="width: 90%;"></div>
-                                    <div class="review-doc-line" style="width: 70%;"></div>
-                                    <div class="review-doc-line" style="width: 85%;"></div>
-                                    <div class="review-doc-line highlight" style="width: 95%;"></div>
-                                    <div class="review-doc-line" style="width: 60%;"></div>
-                                </div>
-                            </div>
-                            <div class="review-panel-mini">
-                                <div class="review-panel-header">
-                                    <div class="reviewer-avatar">ML</div>
-                                    <div class="reviewer-info">
-                                        <div class="reviewer-name">Me. Laurent</div>
-                                        <div class="reviewer-title">Data Protection Lawyer</div>
-                                    </div>
-                                </div>
-                                <div class="review-item-mini">
-                                    <div class="review-item-label">Issue #1: Missing DPO</div>
-                                    <div class="review-item-text">Add: dpo@client.com in Art. 3</div>
-                                    <div class="review-item-verdict">
-                                        <i data-lucide="check" style="width: 10px; height: 10px;"></i>
-                                        Confirmed
-                                    </div>
-                                </div>
-                                <div class="review-item-mini">
-                                    <div class="review-item-label">Issue #2: Retention Period</div>
-                                    <div class="review-item-text">Specify: "5 years from contract end"</div>
-                                    <div class="review-item-verdict">
-                                        <i data-lucide="check" style="width: 10px; height: 10px;"></i>
-                                        Confirmed
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="workflow-connector">
-                    <div class="connector-arrow">
-                        <i data-lucide="arrow-down" class="icon"></i>
-                    </div>
-                </div>
-
-                <!-- Step 4: Certificate -->
-                <div class="workflow-row">
-                    <div class="workflow-text">
-                        <div class="workflow-step-badge">
-                            <span>Step 4</span>
-                        </div>
-                        <h3>Get Your Certificate</h3>
-                        <p>Download a timestamped, lawyer-signed compliance certificate. Keep it in your records for insurance requirements or regulatory audits.</p>
-                    </div>
-                    <div class="workflow-visual-card">
-                        <div class="visual-certificate">
-                            <div class="certificate-preview">
-                                <div class="certificate-header">
-                                    <div class="certificate-logo">CoFender</div>
-                                    <div class="certificate-title">Compliance Certificate</div>
-                                </div>
-                                <div class="certificate-badge">
-                                    <div class="certificate-badge-icon">
-                                        <i data-lucide="shield-check" style="width: 12px; height: 12px;"></i>
-                                    </div>
-                                    <div class="certificate-badge-text">Lawyer Verified</div>
-                                </div>
-                                <div class="certificate-details">
-                                    <div class="certificate-detail-row">
-                                        <span>Document</span>
-                                        <span>DPA_Client_Durand.pdf</span>
-                                    </div>
-                                    <div class="certificate-detail-row">
-                                        <span>Review Date</span>
-                                        <span>20 Jan 2026</span>
-                                    </div>
-                                    <div class="certificate-detail-row">
-                                        <span>Issues Found</span>
-                                        <span>2 (resolved)</span>
-                                    </div>
-                                </div>
-                                <div class="certificate-signature">
-                                    <div class="signature-line">M. Laurent</div>
-                                    <div class="signature-name">Me. Marie Laurent, Avocat</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="how-demo-container">
+                <iframe src="how.html" class="how-demo-iframe" title="How CoFender Works - Interactive Demo"></iframe>
             </div>
         </section>
 
@@ -2284,7 +2165,13 @@
                 <h2>Try It Free During Our Pilot</h2>
                 <p>We're looking for 20 accounting firms to help us build this right. 6 months free, no commitment.</p>
                 
-                <form class="pilot-form" id="pilot-signup-form" onsubmit="handlePilotSubmit(event)">
+                <form class="pilot-form" id="pilot-signup-form" name="pilot-signup" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handlePilotSubmit(event)">
+                    <!-- Honeypot field for spam protection -->
+                    <p style="display:none;">
+                        <label>Don't fill this out: <input name="bot-field"></label>
+                    </p>
+                    <input type="hidden" name="form-name" value="pilot-signup">
+                    <input type="hidden" name="language" value="en">
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label">Your Name *</label>
@@ -2756,25 +2643,48 @@
             
             const form = event.target;
             const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
+            const submitBtn = form.querySelector('.btn-submit');
             
-            // Show success message (in a real app, this would submit to a backend)
-            alert('Thank you for your interest in the CoFender Pilot Program! We will contact you within 24 hours to schedule your onboarding.');
+            // Disable button and show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i data-lucide="loader-2" class="icon" style="animation: spin 1s linear infinite;"></i> Sending...';
             
-            // Reset form
-            form.reset();
-            
-            // Update spots counter (simulated)
-            const spotsEl = document.getElementById('spots-remaining');
-            if (spotsEl) {
-                const currentSpots = parseInt(spotsEl.innerText);
-                if (currentSpots > 0) {
-                    spotsEl.innerText = currentSpots - 1;
+            // Submit to Netlify
+            fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(formData).toString()
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Show success message
+                    const formContainer = document.querySelector('.final-cta-container');
+                    formContainer.innerHTML = `
+                        <div class="form-success">
+                            <div class="form-success-icon">
+                                <i data-lucide="check-circle" style="width: 32px; height: 32px;"></i>
+                            </div>
+                            <h3>You're on the list!</h3>
+                            <p>Thank you for joining the CoFender Pilot Program. We'll contact you within 24 hours to schedule your onboarding.</p>
+                            <button class="btn-submit" onclick="app.navigate('dashboard')" style="background: var(--success);">
+                                <i data-lucide="layout-dashboard" class="icon"></i>
+                                Explore the Demo
+                            </button>
+                        </div>
+                    `;
+                    // Re-initialize icons
+                    if (typeof lucide !== 'undefined') lucide.createIcons();
+                } else {
+                    throw new Error('Form submission failed');
                 }
-            }
-            
-            // Navigate to app
-            app.navigate('dashboard');
+            })
+            .catch(error => {
+                // Re-enable button on error
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i data-lucide="send" class="icon"></i> Request Access';
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+                alert('Sorry, there was an error. Please try again or email us directly.');
+            });
         }
 
         // Smooth scroll for landing page anchors
