@@ -2165,7 +2165,7 @@
                 <h2>Try It Free During Our Pilot</h2>
                 <p>We're looking for 20 accounting firms to help us build this right. 6 months free, no commitment.</p>
                 
-                <form class="pilot-form" id="pilot-signup-form" name="pilot-signup" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handlePilotSubmit(event)">
+                <form class="pilot-form" id="pilot-signup-form" name="pilot-signup" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field">
                     <!-- Honeypot field for spam protection -->
                     <p style="display:none;">
                         <label>Don't fill this out: <input name="bot-field"></label>
@@ -2637,55 +2637,67 @@
     </div>
 
     <script>
-        // Landing Page Form Handler
-        function handlePilotSubmit(event) {
-            event.preventDefault();
-            
-            const form = event.target;
-            const formData = new FormData(form);
-            const submitBtn = form.querySelector('.btn-submit');
-            
-            // Disable button and show loading state
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i data-lucide="loader-2" class="icon" style="animation: spin 1s linear infinite;"></i> Sending...';
-            
-            // Submit to Netlify
-            fetch('/', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams(formData).toString()
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Show success message
-                    const formContainer = document.querySelector('.final-cta-container');
-                    formContainer.innerHTML = `
-                        <div class="form-success">
-                            <div class="form-success-icon">
-                                <i data-lucide="check-circle" style="width: 32px; height: 32px;"></i>
-                            </div>
-                            <h3>You're on the list!</h3>
-                            <p>Thank you for joining the CoFender Pilot Program. We'll contact you within 24 hours to schedule your onboarding.</p>
-                            <button class="btn-submit" onclick="app.navigate('dashboard')" style="background: var(--success);">
-                                <i data-lucide="layout-dashboard" class="icon"></i>
-                                Explore the Demo
-                            </button>
-                        </div>
-                    `;
-                    // Re-initialize icons
+        // Landing Page Form Handler - attached after DOM loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const pilotForm = document.getElementById('pilot-signup-form');
+            if (pilotForm) {
+                pilotForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    
+                    const form = event.target;
+                    const formData = new FormData(form);
+                    const submitBtn = form.querySelector('.btn-submit');
+                    
+                    // Disable button and show loading state
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i data-lucide="loader-2" class="icon" style="animation: spin 1s linear infinite;"></i> Sending...';
                     if (typeof lucide !== 'undefined') lucide.createIcons();
-                } else {
-                    throw new Error('Form submission failed');
-                }
-            })
-            .catch(error => {
-                // Re-enable button on error
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i data-lucide="send" class="icon"></i> Request Access';
-                if (typeof lucide !== 'undefined') lucide.createIcons();
-                alert('Sorry, there was an error. Please try again or email us directly.');
-            });
-        }
+                    
+                    // Submit to Netlify Forms
+                    fetch(form.action || '/', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: new URLSearchParams(formData).toString()
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.text().then(text => {
+                                console.error('Netlify response:', response.status, text);
+                                throw new Error('Submission failed: ' + response.status);
+                            });
+                        }
+                        return response;
+                    })
+                    .then(() => {
+                        // Show success message
+                        const formContainer = document.querySelector('.final-cta-container');
+                        formContainer.innerHTML = `
+                            <div class="form-success">
+                                <div class="form-success-icon">
+                                    <i data-lucide="check-circle" style="width: 32px; height: 32px;"></i>
+                                </div>
+                                <h3>You're on the list!</h3>
+                                <p>Thank you for joining the CoFender Pilot Program. We'll contact you within 24 hours to schedule your onboarding.</p>
+                                <button class="btn-submit" onclick="app.navigate('dashboard')" style="background: var(--success);">
+                                    <i data-lucide="layout-dashboard" class="icon"></i>
+                                    Explore the Demo
+                                </button>
+                            </div>
+                        `;
+                        // Re-initialize icons
+                        if (typeof lucide !== 'undefined') lucide.createIcons();
+                    })
+                    .catch(error => {
+                        console.error('Form submission error:', error);
+                        // Re-enable button on error
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<i data-lucide="send" class="icon"></i> Request Access';
+                        if (typeof lucide !== 'undefined') lucide.createIcons();
+                        alert('Sorry, there was an error. Please try again or email us directly.');
+                    });
+                });
+            }
+        });
 
         // Smooth scroll for landing page anchors
         document.addEventListener('DOMContentLoaded', function() {

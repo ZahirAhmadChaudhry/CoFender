@@ -2165,7 +2165,7 @@
                 <h2>Rejoignez le Programme Pilote</h2>
                 <p>Nous sélectionnons 20 cabinets partenaires pour finaliser notre offre. 6 mois offerts, sans engagement.</p>
                 
-                <form class="pilot-form" id="pilot-signup-form" name="pilot-signup-fr" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handlePilotSubmit(event)">
+                <form class="pilot-form" id="pilot-signup-form" name="pilot-signup-fr" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field">
                     <!-- Champ honeypot pour protection anti-spam -->
                     <p style="display:none;">
                         <label>Ne pas remplir : <input name="bot-field"></label>
@@ -2637,55 +2637,67 @@
     </div>
 
     <script>
-        // Landing Page Form Handler
-        function handlePilotSubmit(event) {
-            event.preventDefault();
-            
-            const form = event.target;
-            const formData = new FormData(form);
-            const submitBtn = form.querySelector('.btn-submit');
-            
-            // Disable button and show loading state
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i data-lucide="loader-2" class="icon" style="animation: spin 1s linear infinite;"></i> Envoi...';
-            
-            // Submit to Netlify
-            fetch('/', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams(formData).toString()
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Show success message
-                    const formContainer = document.querySelector('.final-cta-container');
-                    formContainer.innerHTML = `
-                        <div class="form-success">
-                            <div class="form-success-icon">
-                                <i data-lucide="check-circle" style="width: 32px; height: 32px;"></i>
-                            </div>
-                            <h3>Vous êtes inscrit !</h3>
-                            <p>Merci d'avoir rejoint le Programme Pilote CoFender. Nous vous contacterons sous 24h pour planifier votre accès.</p>
-                            <button class="btn-submit" onclick="app.navigate('dashboard')" style="background: var(--success);">
-                                <i data-lucide="layout-dashboard" class="icon"></i>
-                                Explorer la démo
-                            </button>
-                        </div>
-                    `;
-                    // Re-initialize icons
+        // Landing Page Form Handler - attached after DOM loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const pilotForm = document.getElementById('pilot-signup-form');
+            if (pilotForm) {
+                pilotForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    
+                    const form = event.target;
+                    const formData = new FormData(form);
+                    const submitBtn = form.querySelector('.btn-submit');
+                    
+                    // Disable button and show loading state
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i data-lucide="loader-2" class="icon" style="animation: spin 1s linear infinite;"></i> Envoi...';
                     if (typeof lucide !== 'undefined') lucide.createIcons();
-                } else {
-                    throw new Error('Form submission failed');
-                }
-            })
-            .catch(error => {
-                // Re-enable button on error
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i data-lucide="send" class="icon"></i> Demander un accès';
-                if (typeof lucide !== 'undefined') lucide.createIcons();
-                alert('Désolé, une erreur s\'est produite. Veuillez réessayer ou nous contacter directement.');
-            });
-        }
+                    
+                    // Submit to Netlify Forms
+                    fetch(form.action || '/', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: new URLSearchParams(formData).toString()
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.text().then(text => {
+                                console.error('Netlify response:', response.status, text);
+                                throw new Error('Submission failed: ' + response.status);
+                            });
+                        }
+                        return response;
+                    })
+                    .then(() => {
+                        // Show success message
+                        const formContainer = document.querySelector('.final-cta-container');
+                        formContainer.innerHTML = `
+                            <div class="form-success">
+                                <div class="form-success-icon">
+                                    <i data-lucide="check-circle" style="width: 32px; height: 32px;"></i>
+                                </div>
+                                <h3>Vous êtes inscrit !</h3>
+                                <p>Merci d'avoir rejoint le Programme Pilote CoFender. Nous vous contacterons sous 24h pour planifier votre accès.</p>
+                                <button class="btn-submit" onclick="app.navigate('dashboard')" style="background: var(--success);">
+                                    <i data-lucide="layout-dashboard" class="icon"></i>
+                                    Explorer la démo
+                                </button>
+                            </div>
+                        `;
+                        // Re-initialize icons
+                        if (typeof lucide !== 'undefined') lucide.createIcons();
+                    })
+                    .catch(error => {
+                        console.error('Form submission error:', error);
+                        // Re-enable button on error
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<i data-lucide="send" class="icon"></i> Demander un accès';
+                        if (typeof lucide !== 'undefined') lucide.createIcons();
+                        alert('Désolé, une erreur s\'est produite. Veuillez réessayer ou nous contacter directement.');
+                    });
+                });
+            }
+        });
 
         // Smooth scroll for landing page anchors
         document.addEventListener('DOMContentLoaded', function() {
